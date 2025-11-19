@@ -1,8 +1,6 @@
 ---
 name: 작업 항목
 about: 개발 작업이나 할일을 등록해주세요.
-title: '[TASK] '
-labels: task
 assignees: ''
 ---
 
