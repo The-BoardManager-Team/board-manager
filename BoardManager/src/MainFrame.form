@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" value="MainFrame"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="jTabbedPane1" alignment="0" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="lblUserInfo" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="btnLogout" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnLogout" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblUserInfo" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jTabbedPane1" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
+      <SubComponents>
+        <Container class="javax.swing.JPanel" name="MemPanel">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+              <JTabbedPaneConstraints tabName="&#xd68c;&#xc6d0; &#xad00;&#xb9ac;">
+                <Property name="tabTitle" type="java.lang.String" value="&#xd68c;&#xc6d0; &#xad00;&#xb9ac;"/>
+              </JTabbedPaneConstraints>
+            </Constraint>
+          </Constraints>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jScrollPane1" min="-2" pref="691" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="btnMemSelect" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnMemUpdate" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnMemInsert" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnMemDelete" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtMem" alignment="0" min="-2" pref="82" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jScrollPane1" pref="358" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="txtMem" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnMemSelect" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnMemInsert" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnMemUpdate" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnMemDelete" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+              <Properties>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="null"/>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+              </AuxValues>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JTable" name="MemTable">
+                  <Properties>
+                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                      <Table columnCount="6" rowCount="30">
+                        <Column editable="true" title="&#xd559;&#xbc88;" type="java.lang.Object"/>
+                        <Column editable="true" title="&#xc9c1;&#xcc45;" type="java.lang.Object"/>
+                        <Column editable="true" title="&#xc774;&#xb984;" type="java.lang.Object"/>
+                        <Column editable="true" title="&#xc544;&#xc774;&#xb514;" type="java.lang.Object"/>
+                        <Column editable="true" title="&#xc0dd;&#xb144;&#xc6d4;&#xc77c;" type="java.lang.Object"/>
+                        <Column editable="true" title="&#xc131;&#xbcc4;" type="java.lang.Object"/>
+                      </Table>
+                    </Property>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
+            <Component class="javax.swing.JButton" name="btnMemSelect">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#xd68c;&#xc6d0; &#xac80;&#xc0c9;"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnMemUpdate">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#xd68c;&#xc6d0; &#xc218;&#xc815;"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnMemInsert">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#xd68c;&#xc6d0; &#xcd94;&#xac00;"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnMemDelete">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#xd68c;&#xc6d0; &#xc0ad;&#xc81c;"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="txtMem">
+            </Component>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="SchePanel">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+              <JTabbedPaneConstraints tabName="&#xc77c;&#xc815; &#xad00;&#xb9ac;">
+                <Property name="tabTitle" type="java.lang.String" value="&#xc77c;&#xc815; &#xad00;&#xb9ac;"/>
+              </JTabbedPaneConstraints>
+            </Constraint>
+          </Constraints>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jScrollPane3" min="-2" pref="691" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="btnScheSelect" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnScheUpdate" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnScheInsert" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnScheDelete" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtSche" alignment="0" min="-2" pref="82" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jScrollPane3" alignment="0" pref="358" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="txtSche" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnScheSelect" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnScheInsert" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnScheUpdate" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnScheDelete" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Container class="javax.swing.JScrollPane" name="jScrollPane3">
+              <AuxValues>
+                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+              </AuxValues>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JTable" name="ScheTable">
+                  <Properties>
+                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                      <Table columnCount="6" rowCount="30">
+                        <Column editable="true" title="&#xd65c;&#xb3d9; &#xb0b4;&#xc6a9;" type="java.lang.Object"/>
+                        <Column editable="true" title="&#xb0a0;&#xc9dc;" type="java.lang.Object"/>
+                        <Column editable="true" title="&#xc7a5;&#xc18c;" type="java.lang.Object"/>
+                        <Column editable="true" title="&#xcc38;&#xac00; &#xc778;&#xc6d0; &#xc218;" type="java.lang.Object"/>
+                        <Column editable="true" title="&#xcc38;&#xac00; &#xc778;&#xc6d0;" type="java.lang.Object"/>
+                        <Column editable="true" title="&#xc644;&#xb8cc;&#xb41c; &#xc77c;&#xc815;" type="java.lang.Boolean"/>
+                      </Table>
+                    </Property>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
+            <Component class="javax.swing.JTextField" name="txtSche">
+            </Component>
+            <Component class="javax.swing.JButton" name="btnScheSelect">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#xc77c;&#xc815; &#xac80;&#xc0c9;"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnScheInsert">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#xc77c;&#xc815; &#xcd94;&#xac00;"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnScheUpdate">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#xc77c;&#xc815; &#xc218;&#xc815;"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnScheDelete">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#xc77c;&#xc815; &#xc0ad;&#xc81c;"/>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="HisPanel">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+              <JTabbedPaneConstraints tabName="&#xd65c;&#xb3d9; &#xb0b4;&#xc5ed;">
+                <Property name="tabTitle" type="java.lang.String" value="&#xd65c;&#xb3d9; &#xb0b4;&#xc5ed;"/>
+              </JTabbedPaneConstraints>
+            </Constraint>
+          </Constraints>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jScrollPane5" min="-2" pref="691" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="btnHisSelect" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtHis" alignment="0" min="-2" pref="82" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="txtHis" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnHisSelect" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="jScrollPane5" pref="352" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JTextField" name="txtHis">
+            </Component>
+            <Component class="javax.swing.JButton" name="btnHisSelect">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#xd65c;&#xb3d9; &#xac80;&#xc0c9;"/>
+              </Properties>
+            </Component>
+            <Container class="javax.swing.JScrollPane" name="jScrollPane5">
+              <AuxValues>
+                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+              </AuxValues>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JTable" name="HisTable">
+                  <Properties>
+                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                      <Table columnCount="5" rowCount="30">
+                        <Column editable="true" title="&#xd65c;&#xb3d9; &#xb0b4;&#xc6a9;" type="java.lang.Object"/>
+                        <Column editable="true" title="&#xb0a0;&#xc9dc;" type="java.lang.Object"/>
+                        <Column editable="true" title="&#xc7a5;&#xc18c;" type="java.lang.Object"/>
+                        <Column editable="true" title="&#xcc38;&#xac00; &#xc778;&#xc6d0; &#xc218;" type="java.lang.Object"/>
+                        <Column editable="true" title="&#xcc38;&#xac00; &#xc778;&#xc6d0;" type="java.lang.Object"/>
+                      </Table>
+                    </Property>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="DuesPanel">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+              <JTabbedPaneConstraints tabName="&#xd68c;&#xbe44; &#xad00;&#xb9ac;">
+                <Property name="tabTitle" type="java.lang.String" value="&#xd68c;&#xbe44; &#xad00;&#xb9ac;"/>
+              </JTabbedPaneConstraints>
+            </Constraint>
+          </Constraints>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jScrollPane4" min="-2" pref="691" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="btnDuesSelect" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnDuesUpdate" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnDuesInsert" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnDuesDelete" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtDues" alignment="0" min="-2" pref="82" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jScrollPane4" alignment="0" pref="358" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="txtDues" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnDuesSelect" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnDuesInsert" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnDuesUpdate" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnDuesDelete" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Container class="javax.swing.JScrollPane" name="jScrollPane4">
+              <AuxValues>
+                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+              </AuxValues>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JTable" name="DuesTable">
+                  <Properties>
+                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                      <Table columnCount="6" rowCount="30">
+                        <Column editable="true" title="&#xb0a0;&#xc9dc;" type="java.lang.Object"/>
+                        <Column editable="true" title="&#xc7a5;&#xc18c;" type="java.lang.Object"/>
+                        <Column editable="true" title="&#xc0ac;&#xc6a9; &#xb300;&#xd45c;&#xc790;" type="java.lang.Object"/>
+                        <Column editable="true" title="&#xc0ac;&#xc6a9; &#xbaa9;&#xc801;" type="java.lang.Object"/>
+                        <Column editable="true" title="&#xae08;&#xc561;" type="java.lang.Object"/>
+                        <Column editable="true" title="&#xc794;&#xc561;" type="java.lang.Object"/>
+                      </Table>
+                    </Property>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
+            <Component class="javax.swing.JTextField" name="txtDues">
+            </Component>
+            <Component class="javax.swing.JButton" name="btnDuesSelect">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#xb0b4;&#xc5ed; &#xac80;&#xc0c9;"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnDuesInsert">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#xb0b4;&#xc5ed; &#xcd94;&#xac00;"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnDuesUpdate">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#xb0b4;&#xc5ed; &#xc218;&#xc815;"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnDuesDelete">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#xb0b4;&#xc5ed; &#xc0ad;&#xc81c;"/>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JLabel" name="lblUserInfo">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="admin&#xb2d8; &#xd658;&#xc601;&#xd569;&#xb2c8;&#xb2e4;!"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnLogout">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#xb85c;&#xadf8;&#xc544;&#xc6c3;"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLogoutActionPerformed"/>
+      </Events>
+    </Component>
+  </SubComponents>
+</Form>
