@@ -2,31 +2,24 @@ import java.sql.*;
 import javax.swing.table.DefaultTableModel;
 
 public class MainFrame extends javax.swing.JFrame {
-    DB DBM = new DB();
-    String strSQL = "Select * From Member";
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MainFrame.class.getName());
 
     public MainFrame() {
         initComponents();
-        
+
+        // 로그인 체크
         if (!UserSession.isLoggedIn()) {
-        new LoginFrame().setVisible(true);
-        dispose();
-        return;
+            new LoginFrame().setVisible(true);
+            dispose();
+            return;
         }
 
-        // 로그인된 사용자 ID 사용하기
-        String userId = UserSession.getUsername();
-        lblUserInfo.setText(userId + "님 환영합니다!");
-        
-        try{
-            String strData = null;
-            DBM.dbOpen();
-            setTableFromDB(strSQL);
-            DBM.dbClose();
-        }catch(Exception e){
-            System.out.println("SQLException" + e.getMessage());
-        }
+        // 로그인된 사용자 이름 표시
+        String userName = UserSession.getUserName();
+        lblUserInfo.setText(userName + "님 환영합니다!");
+
+        // 회원 테이블 로드
+        loadMemberTable();
     }
 
     
@@ -429,25 +422,32 @@ public class MainFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-        private final void setTableFromDB(String strQuery) {
-        int iCntRow = 0;
-        try{
-            PreparedStatement stmt = DBM.DB_con.prepareStatement(strQuery);
-            DBM.DB_rs = stmt.executeQuery();
-                       
-            while (DBM.DB_rs.next()) {
-                MemTable.setValueAt(DBM.DB_rs.getString("No"), iCntRow, 0);
-                MemTable.setValueAt(DBM.DB_rs.getString("Role"), iCntRow, 1);
-                MemTable.setValueAt(DBM.DB_rs.getString("Name"), iCntRow, 2);
-                MemTable.setValueAt(DBM.DB_rs.getString("ID"), iCntRow, 3);
-                MemTable.setValueAt(DBM.DB_rs.getString("Birth"), iCntRow, 4);
-                MemTable.setValueAt(DBM.DB_rs.getString("Gender"), iCntRow, 5);
-                iCntRow++;
+    /**
+     * 회원 테이블 데이터를 DB에서 로드하여 화면에 표시
+     */
+    private void loadMemberTable() {
+        String sql = "SELECT student_id, role, name, username, birth_date, gender FROM users";
+        DBConnection db = new DBConnection();
+
+        // try-with-resources: Connection, PreparedStatement, ResultSet 자동 닫기
+        try (Connection conn = db.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            int row = 0;
+            while (rs.next()) {
+                MemTable.setValueAt(rs.getString("student_id"), row, 0);
+                MemTable.setValueAt(rs.getString("role"), row, 1);
+                MemTable.setValueAt(rs.getString("name"), row, 2);
+                MemTable.setValueAt(rs.getString("username"), row, 3);
+                MemTable.setValueAt(rs.getString("birth_date"), row, 4);
+                MemTable.setValueAt(rs.getString("gender"), row, 5);
+                row++;
             }
-            
-            DBM.DB_rs.close();
-        } catch(Exception e){
-            System.out.println("SQLExcoption : " + e.getMessage());
+
+        } catch (SQLException e) {
+            System.err.println("회원 테이블 로드 중 오류 발생: " + e.getMessage());
+            e.printStackTrace();
         }
     }
     
