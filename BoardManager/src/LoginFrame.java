@@ -89,20 +89,14 @@ public class LoginFrame extends javax.swing.JFrame {
         String id = txtID.getText().trim();
         String pw = new String(txtPW.getPassword());
 
-        DB db = new DB();
-        boolean success = db.checkLogin(id, pw);  
-        // checkLogin()은 로그인 성공하면 true/false 반환하게 만들면 됨
-        if (success) {
-        UserDTO user = db.getUserInfo(id);
+        DBConnection db = new DBConnection();
 
-        if (user != null) {
-                // 세션 저장
-                UserSession.setCurrentUser(
-                    user.getId(),
-                    user.getName(),
-                    user.getRole()
-                );
-            }
+        // 로그인 검증
+        if (db.checkLogin(id, pw)) {
+            // 사용자 정보 조회 및 세션 저장
+            db.loadUserSession(id);
+
+            // 메인 화면으로 이동
             new MainFrame().setVisible(true);
             this.dispose();
         } else {
