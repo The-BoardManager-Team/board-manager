@@ -20,6 +20,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         // 회원 테이블 로드
         loadMemberTable();
+        
+        String role = UserSession.getRole();
+        applyRoleBasedTabs(role);
     }
 
     
@@ -32,36 +35,75 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroupGender = new javax.swing.ButtonGroup();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         MemPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         MemTable = new javax.swing.JTable();
-        btnMemSelect = new javax.swing.JButton();
         btnMemUpdate = new javax.swing.JButton();
         btnMemInsert = new javax.swing.JButton();
         btnMemDelete = new javax.swing.JButton();
-        txtMem = new javax.swing.JTextField();
+        btnMemRefresh = new javax.swing.JButton();
+        chkAll = new javax.swing.JCheckBox();
+        chkMale = new javax.swing.JCheckBox();
+        chkFemale = new javax.swing.JCheckBox();
+        btnRoleChange = new javax.swing.JButton();
         SchePanel = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        ScheTable = new javax.swing.JTable();
-        txtSche = new javax.swing.JTextField();
-        btnScheSelect = new javax.swing.JButton();
         btnScheInsert = new javax.swing.JButton();
-        btnScheUpdate = new javax.swing.JButton();
         btnScheDelete = new javax.swing.JButton();
+        txtScheYear = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        snpScheLocation = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        snpScheMemberCount = new javax.swing.JSpinner();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        txtScheDay = new javax.swing.JTextField();
+        txtScheMonth = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        lstScheMember = new javax.swing.JList<>();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        snpScheDescription = new javax.swing.JTextArea();
+        jLabel6 = new javax.swing.JLabel();
+        chkScheCompleted = new javax.swing.JCheckBox();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        ScheTable = new javax.swing.JTable();
+        btnScheRefresh = new javax.swing.JButton();
         HisPanel = new javax.swing.JPanel();
-        txtHis = new javax.swing.JTextField();
-        btnHisSelect = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         HisTable = new javax.swing.JTable();
+        btnHisDelete = new javax.swing.JButton();
+        btnHisRefresh = new javax.swing.JButton();
+        btnDetail = new javax.swing.JButton();
+        jCheckBox2 = new javax.swing.JCheckBox();
+        jCheckBox3 = new javax.swing.JCheckBox();
         DuesPanel = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         DuesTable = new javax.swing.JTable();
-        txtDues = new javax.swing.JTextField();
-        btnDuesSelect = new javax.swing.JButton();
         btnDuesInsert = new javax.swing.JButton();
         btnDuesUpdate = new javax.swing.JButton();
         btnDuesDelete = new javax.swing.JButton();
+        txtDuesLocation = new javax.swing.JTextField();
+        cbxDuesRepresentive = new javax.swing.JComboBox<>();
+        txtDuesDescription = new javax.swing.JTextField();
+        txtDuesAmount = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        txtDuesMonth = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        txtDuesDay = new javax.swing.JTextField();
+        txtDuesYear = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        lblTotalDues = new javax.swing.JLabel();
+        lblRemainDues = new javax.swing.JLabel();
+        lblDuesMemberCount = new javax.swing.JLabel();
         lblUserInfo = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
 
@@ -72,83 +114,180 @@ public class MainFrame extends javax.swing.JFrame {
 
         MemTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "학번", "직책", "이름", "아이디", "생년월일", "성별"
+                "ID", "아이디", "이름", "학번", "성별", "직책", "생년월일"
             }
         ));
         jScrollPane1.setViewportView(MemTable);
 
-        btnMemSelect.setText("회원 검색");
-
         btnMemUpdate.setText("회원 수정");
+        btnMemUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMemUpdateActionPerformed(evt);
+            }
+        });
 
         btnMemInsert.setText("회원 추가");
+        btnMemInsert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMemInsertActionPerformed(evt);
+            }
+        });
 
         btnMemDelete.setText("회원 삭제");
+        btnMemDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMemDeleteActionPerformed(evt);
+            }
+        });
+
+        btnMemRefresh.setText("새로고침");
+        btnMemRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMemRefreshActionPerformed(evt);
+            }
+        });
+
+        buttonGroupGender.add(chkAll);
+        chkAll.setSelected(true);
+        chkAll.setText("전체");
+
+        buttonGroupGender.add(chkMale);
+        chkMale.setText("남자");
+
+        buttonGroupGender.add(chkFemale);
+        chkFemale.setText("여자");
+
+        btnRoleChange.setText("직책 변경");
+        btnRoleChange.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRoleChangeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout MemPanelLayout = new javax.swing.GroupLayout(MemPanel);
         MemPanel.setLayout(MemPanelLayout);
         MemPanelLayout.setHorizontalGroup(
             MemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MemPanelLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 691, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(MemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(MemPanelLayout.createSequentialGroup()
+                        .addComponent(chkAll)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(chkMale)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(chkFemale)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 761, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(MemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnMemSelect, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnMemUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnMemInsert, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnMemDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtMem, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(MemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(MemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btnMemUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnMemInsert, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnMemDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnRoleChange))
+                    .addComponent(btnMemRefresh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         MemPanelLayout.setVerticalGroup(
             MemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
             .addGroup(MemPanelLayout.createSequentialGroup()
-                .addComponent(txtMem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addGroup(MemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(chkAll)
+                    .addComponent(chkMale)
+                    .addComponent(chkFemale))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnMemSelect)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnMemInsert)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnMemUpdate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnMemDelete)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(MemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
+                    .addGroup(MemPanelLayout.createSequentialGroup()
+                        .addComponent(btnMemRefresh)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnMemInsert)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnMemUpdate)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnRoleChange)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnMemDelete)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
-        jTabbedPane1.addTab("회원 관리", MemPanel);
+        jTabbedPane1.addTab("인원 관리", MemPanel);
+
+        btnScheInsert.setText("일정 등록");
+        btnScheInsert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnScheInsertActionPerformed(evt);
+            }
+        });
+
+        btnScheDelete.setText("일정 삭제");
+        btnScheDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnScheDeleteActionPerformed(evt);
+            }
+        });
+
+        txtScheYear.setText("2025");
+        txtScheYear.setToolTipText("");
+
+        jLabel1.setText("년");
+
+        jLabel2.setText("장소 :");
+
+        jLabel3.setText("인원 수 :");
+
+        jLabel4.setText("월");
+
+        jLabel5.setText("일");
+
+        lstScheMember.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(lstScheMember);
+
+        snpScheDescription.setColumns(20);
+        snpScheDescription.setRows(1);
+        snpScheDescription.setTabSize(1);
+        jScrollPane3.setViewportView(snpScheDescription);
+
+        jLabel6.setText("활동 내용 :");
+
+        chkScheCompleted.setText("완료");
 
         ScheTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -162,29 +301,10 @@ public class MainFrame extends javax.swing.JFrame {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "활동 내용", "날짜", "장소", "참가 인원 수", "참가 인원", "완료된 일정"
+                "날짜", "장소", "인원 수", "활동 내용", "참가 인원", "완료"
             }
         ) {
             Class[] types = new Class [] {
@@ -195,50 +315,98 @@ public class MainFrame extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(ScheTable);
+        jScrollPane6.setViewportView(ScheTable);
 
-        btnScheSelect.setText("일정 검색");
-
-        btnScheInsert.setText("일정 추가");
-
-        btnScheUpdate.setText("일정 수정");
-
-        btnScheDelete.setText("일정 삭제");
+        btnScheRefresh.setText("새로고침");
+        btnScheRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnScheRefreshActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout SchePanelLayout = new javax.swing.GroupLayout(SchePanel);
         SchePanel.setLayout(SchePanelLayout);
         SchePanelLayout.setHorizontalGroup(
             SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(SchePanelLayout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 691, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(SchePanelLayout.createSequentialGroup()
+                        .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtScheYear, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                            .addComponent(chkScheCompleted, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(SchePanelLayout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(snpScheMemberCount, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(SchePanelLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtScheMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtScheDay, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel5)))
+                        .addGap(30, 30, 30)
+                        .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
+                            .addComponent(snpScheLocation)))
+                    .addComponent(jScrollPane6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnScheSelect, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnScheUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnScheInsert, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnScheDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtSche, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnScheInsert)
+                    .addComponent(btnScheDelete)
+                    .addComponent(btnScheRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
         SchePanelLayout.setVerticalGroup(
             SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
             .addGroup(SchePanelLayout.createSequentialGroup()
-                .addComponent(txtSche, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtScheYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1)
+                        .addComponent(jLabel4)
+                        .addComponent(txtScheDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5)
+                        .addComponent(txtScheMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(snpScheLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2)
+                        .addComponent(btnScheRefresh)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnScheSelect)
+                .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(SchePanelLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(chkScheCompleted)
+                            .addComponent(snpScheMemberCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)))
+                    .addComponent(jLabel6)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnScheInsert))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnScheInsert)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnScheUpdate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnScheDelete)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(SchePanelLayout.createSequentialGroup()
+                        .addComponent(btnScheDelete)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("일정 관리", SchePanel);
-
-        btnHisSelect.setText("활동 검색");
+        jTabbedPane1.addTab("스케줄 관리", SchePanel);
 
         HisTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -274,34 +442,73 @@ public class MainFrame extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "활동 내용", "날짜", "장소", "참가 인원 수", "참가 인원"
+                "날짜", "장소", "참가 인원 수", "활동 내용", "참가자"
             }
         ));
         jScrollPane5.setViewportView(HisTable);
+
+        btnHisDelete.setText("활동 삭제");
+        btnHisDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHisDeleteActionPerformed(evt);
+            }
+        });
+
+        btnHisRefresh.setText("새로고침");
+        btnHisRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHisRefreshActionPerformed(evt);
+            }
+        });
+
+        btnDetail.setText("상세 보기");
+        btnDetail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDetailActionPerformed(evt);
+            }
+        });
+
+        jCheckBox2.setText("날짜순");
+
+        jCheckBox3.setText("최신순");
 
         javax.swing.GroupLayout HisPanelLayout = new javax.swing.GroupLayout(HisPanel);
         HisPanel.setLayout(HisPanelLayout);
         HisPanelLayout.setHorizontalGroup(
             HisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(HisPanelLayout.createSequentialGroup()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 691, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(HisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 761, Short.MAX_VALUE)
+                    .addGroup(HisPanelLayout.createSequentialGroup()
+                        .addComponent(jCheckBox2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCheckBox3)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(HisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnHisSelect, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtHis, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(HisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(HisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btnHisDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnHisRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnDetail, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
         HisPanelLayout.setVerticalGroup(
             HisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(HisPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(HisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCheckBox2)
+                    .addComponent(jCheckBox3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(HisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
                     .addGroup(HisPanelLayout.createSequentialGroup()
-                        .addComponent(txtHis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnHisRefresh)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnHisSelect)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addComponent(btnDetail)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnHisDelete)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         jTabbedPane1.addTab("활동 내역", HisPanel);
@@ -345,43 +552,173 @@ public class MainFrame extends javax.swing.JFrame {
         ));
         jScrollPane4.setViewportView(DuesTable);
 
-        btnDuesSelect.setText("내역 검색");
-
         btnDuesInsert.setText("내역 추가");
+        btnDuesInsert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDuesInsertActionPerformed(evt);
+            }
+        });
 
-        btnDuesUpdate.setText("내역 수정");
+        btnDuesUpdate.setText("새로고침");
+        btnDuesUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDuesUpdateActionPerformed(evt);
+            }
+        });
 
         btnDuesDelete.setText("내역 삭제");
+        btnDuesDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDuesDeleteActionPerformed(evt);
+            }
+        });
+
+        cbxDuesRepresentive.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel7.setText("년");
+
+        jLabel8.setText("장소 :");
+
+        jLabel9.setText("대표자 :");
+
+        jLabel10.setText("사용 내역 :");
+
+        jLabel11.setText("금액 :");
+
+        jLabel12.setText("월");
+
+        jLabel13.setText("일");
+
+        txtDuesYear.setText("2025");
+
+        jLabel14.setText("회원 수 :");
+
+        jLabel15.setText("잔여 회비 :");
+
+        jLabel16.setText("총 회비 :");
+
+        lblTotalDues.setFont(new java.awt.Font("맑은 고딕", 1, 14)); // NOI18N
+        lblTotalDues.setText("text");
+
+        lblRemainDues.setFont(new java.awt.Font("맑은 고딕", 1, 14)); // NOI18N
+        lblRemainDues.setForeground(new java.awt.Color(102, 255, 102));
+        lblRemainDues.setText("text");
+
+        lblDuesMemberCount.setText("text");
 
         javax.swing.GroupLayout DuesPanelLayout = new javax.swing.GroupLayout(DuesPanel);
         DuesPanel.setLayout(DuesPanelLayout);
         DuesPanelLayout.setHorizontalGroup(
             DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DuesPanelLayout.createSequentialGroup()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 691, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnDuesSelect, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDuesUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDuesInsert, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDuesDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtDues, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(DuesPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(DuesPanelLayout.createSequentialGroup()
+                                .addComponent(txtDuesYear, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtDuesMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtDuesDay, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel13))
+                            .addGroup(DuesPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbxDuesRepresentive, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addGroup(DuesPanelLayout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addComponent(jLabel8)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtDuesLocation)
+                            .addComponent(txtDuesDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(DuesPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtDuesAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(DuesPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblDuesMemberCount)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblTotalDues, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblRemainDues, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(DuesPanelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 761, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnDuesUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnDuesInsert, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnDuesDelete))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         DuesPanelLayout.setVerticalGroup(
             DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
             .addGroup(DuesPanelLayout.createSequentialGroup()
-                .addComponent(txtDues, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(DuesPanelLayout.createSequentialGroup()
+                        .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(txtDuesLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtDuesDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10)))
+                    .addGroup(DuesPanelLayout.createSequentialGroup()
+                        .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtDuesAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel16)
+                                .addComponent(lblTotalDues))
+                            .addComponent(jLabel11))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel14)
+                                .addComponent(lblDuesMemberCount))
+                            .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel15)
+                                .addComponent(lblRemainDues))))
+                    .addGroup(DuesPanelLayout.createSequentialGroup()
+                        .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(txtDuesYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDuesMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12)
+                            .addComponent(txtDuesDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel13))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(cbxDuesRepresentive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDuesSelect)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDuesInsert)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDuesUpdate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDuesDelete)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(DuesPanelLayout.createSequentialGroup()
+                        .addComponent(btnDuesUpdate)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDuesInsert)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDuesDelete)
+                        .addGap(0, 217, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("회비 관리", DuesPanel);
@@ -419,14 +756,32 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jTabbedPane1.getAccessibleContext().setAccessibleName("인원 관리");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    private void applyRoleBasedTabs(String role) {
+        // 관리자,부장이면 모두 보임
+        if (role.equals("admin") || role.equals("president")) { return; }
+        
+        // 일반 회원(member)일 경우 숨길 버튼들
+        btnMemInsert.setVisible(false);
+        btnMemUpdate.setVisible(false);
+        btnMemDelete.setVisible(false);
+        btnRoleChange.setVisible(false);
 
+        btnDuesInsert.setVisible(false);
+        btnDuesUpdate.setVisible(false);
+        btnDuesDelete.setVisible(false);
+    }
+    
+    
     /**
      * 회원 테이블 데이터를 DB에서 로드하여 화면에 표시
      */
     private void loadMemberTable() {
-        String sql = "SELECT student_id, role, name, username, birth_date, gender FROM users";
+        String sql = "SELECT id, username, name, student_id, gender, role, birth_date FROM users";
+
         DBConnection db = new DBConnection();
 
         // try-with-resources: Connection, PreparedStatement, ResultSet 자동 닫기
@@ -436,12 +791,14 @@ public class MainFrame extends javax.swing.JFrame {
 
             int row = 0;
             while (rs.next()) {
-                MemTable.setValueAt(rs.getString("student_id"), row, 0);
-                MemTable.setValueAt(rs.getString("role"), row, 1);
+                MemTable.setValueAt(rs.getString("id"), row, 0);
+                MemTable.setValueAt(rs.getString("username"), row, 1);
                 MemTable.setValueAt(rs.getString("name"), row, 2);
-                MemTable.setValueAt(rs.getString("username"), row, 3);
-                MemTable.setValueAt(rs.getString("birth_date"), row, 4);
-                MemTable.setValueAt(rs.getString("gender"), row, 5);
+                MemTable.setValueAt(rs.getString("student_id"), row, 3);
+                MemTable.setValueAt(rs.getString("gender"), row, 4);
+                MemTable.setValueAt(rs.getString("role"), row, 5);
+                MemTable.setValueAt(rs.getString("birth_date"), row, 6);
+                
                 row++;
             }
 
@@ -451,12 +808,75 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
     
+    //로그아웃 버튼
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         UserSession.clear();
         new LoginFrame().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnLogoutActionPerformed
 
+    //인원 관리 탭 새로고침 버튼
+    private void btnMemRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMemRefreshActionPerformed
+        
+    }//GEN-LAST:event_btnMemRefreshActionPerformed
+    //인원 관리 탭 삽입 버튼
+    private void btnMemInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMemInsertActionPerformed
+        
+    }//GEN-LAST:event_btnMemInsertActionPerformed
+    //인원 관리 탭 변경 버튼
+    private void btnMemUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMemUpdateActionPerformed
+        
+    }//GEN-LAST:event_btnMemUpdateActionPerformed
+    //인원 관리 직책 변경 버튼
+    private void btnRoleChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRoleChangeActionPerformed
+        
+    }//GEN-LAST:event_btnRoleChangeActionPerformed
+    //인원 관리 탭 삭제 버튼
+    private void btnMemDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMemDeleteActionPerformed
+        
+    }//GEN-LAST:event_btnMemDeleteActionPerformed
+    
+    //스케줄 관리 탭 새로고침 버튼
+    private void btnScheRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnScheRefreshActionPerformed
+
+    }//GEN-LAST:event_btnScheRefreshActionPerformed
+    //스케줄 관리 탭 일정 등록 버튼
+    private void btnScheInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnScheInsertActionPerformed
+
+    }//GEN-LAST:event_btnScheInsertActionPerformed
+    //스케줄 관리 탭 일정 삭제 버튼
+    private void btnScheDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnScheDeleteActionPerformed
+
+    }//GEN-LAST:event_btnScheDeleteActionPerformed
+    
+    //활동 내역 탭 새로고침 버튼
+    private void btnHisRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHisRefreshActionPerformed
+
+    }//GEN-LAST:event_btnHisRefreshActionPerformed
+    //활동 내역 탭 상세 보기 버튼
+    private void btnDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailActionPerformed
+
+    }//GEN-LAST:event_btnDetailActionPerformed
+    //활동 내역 탭 활동 삭제 버튼
+    private void btnHisDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHisDeleteActionPerformed
+        
+    }//GEN-LAST:event_btnHisDeleteActionPerformed
+
+    //회비 관리 탭 새로고침 버튼
+    private void btnDuesUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuesUpdateActionPerformed
+
+    }//GEN-LAST:event_btnDuesUpdateActionPerformed
+    //회비 관리 탭 내역 추가 버튼
+    private void btnDuesInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuesInsertActionPerformed
+
+    }//GEN-LAST:event_btnDuesInsertActionPerformed
+    //회비 관리 탭 내역 삭제 버튼
+    private void btnDuesDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuesDeleteActionPerformed
+
+    }//GEN-LAST:event_btnDuesDeleteActionPerformed
+
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -496,29 +916,68 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTable MemTable;
     private javax.swing.JPanel SchePanel;
     private javax.swing.JTable ScheTable;
+    private javax.swing.JButton btnDetail;
     private javax.swing.JButton btnDuesDelete;
     private javax.swing.JButton btnDuesInsert;
-    private javax.swing.JButton btnDuesSelect;
     private javax.swing.JButton btnDuesUpdate;
-    private javax.swing.JButton btnHisSelect;
+    private javax.swing.JButton btnHisDelete;
+    private javax.swing.JButton btnHisRefresh;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnMemDelete;
     private javax.swing.JButton btnMemInsert;
-    private javax.swing.JButton btnMemSelect;
+    private javax.swing.JButton btnMemRefresh;
     private javax.swing.JButton btnMemUpdate;
+    private javax.swing.JButton btnRoleChange;
     private javax.swing.JButton btnScheDelete;
     private javax.swing.JButton btnScheInsert;
-    private javax.swing.JButton btnScheSelect;
-    private javax.swing.JButton btnScheUpdate;
+    private javax.swing.JButton btnScheRefresh;
+    private javax.swing.ButtonGroup buttonGroupGender;
+    private javax.swing.JComboBox<String> cbxDuesRepresentive;
+    private javax.swing.JCheckBox chkAll;
+    private javax.swing.JCheckBox chkFemale;
+    private javax.swing.JCheckBox chkMale;
+    private javax.swing.JCheckBox chkScheCompleted;
+    private javax.swing.JCheckBox jCheckBox2;
+    private javax.swing.JCheckBox jCheckBox3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel lblDuesMemberCount;
+    private javax.swing.JLabel lblRemainDues;
+    private javax.swing.JLabel lblTotalDues;
     private javax.swing.JLabel lblUserInfo;
-    private javax.swing.JTextField txtDues;
-    private javax.swing.JTextField txtHis;
-    private javax.swing.JTextField txtMem;
-    private javax.swing.JTextField txtSche;
+    private javax.swing.JList<String> lstScheMember;
+    private javax.swing.JTextArea snpScheDescription;
+    private javax.swing.JTextField snpScheLocation;
+    private javax.swing.JSpinner snpScheMemberCount;
+    private javax.swing.JTextField txtDuesAmount;
+    private javax.swing.JTextField txtDuesDay;
+    private javax.swing.JTextField txtDuesDescription;
+    private javax.swing.JTextField txtDuesLocation;
+    private javax.swing.JTextField txtDuesMonth;
+    private javax.swing.JTextField txtDuesYear;
+    private javax.swing.JTextField txtScheDay;
+    private javax.swing.JTextField txtScheMonth;
+    private javax.swing.JTextField txtScheYear;
     // End of variables declaration//GEN-END:variables
 }
