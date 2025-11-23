@@ -13,7 +13,8 @@ public class DBConnection {
 
     // 각자 환경에 맞게 비밀번호 변경 필요
     private static final String USER = "root";
-    private static final String PASSWORD = "ritepa64";
+    //private static final String PASSWORD = "ritepa64";
+    private static final String PASSWORD = "Inha1958";
 
     /**
      * 데이터베이스 연결 생성
