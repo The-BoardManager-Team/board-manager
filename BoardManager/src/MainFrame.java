@@ -1,9 +1,14 @@
 import java.sql.*;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class MainFrame extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MainFrame.class.getName());
-
+    
+    //스케줄 탭에서 id를 가져오는 리스트
+    private ArrayList<Integer> scheduleIds = new ArrayList<>();
+    
     public MainFrame() {
         initComponents();
 
@@ -20,6 +25,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         // 회원 테이블 로드
         loadMemberTable();
+        loadScheduleTable();
+        loadHistoryTable();
+        loadDuesTable();
         
         String role = UserSession.getRole();
         applyRoleBasedTabs(role);
@@ -61,8 +69,6 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txtScheDay = new javax.swing.JTextField();
         txtScheMonth = new javax.swing.JTextField();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        lstScheMember = new javax.swing.JList<>();
         jScrollPane3 = new javax.swing.JScrollPane();
         snpScheDescription = new javax.swing.JTextArea();
         jLabel6 = new javax.swing.JLabel();
@@ -70,12 +76,12 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane6 = new javax.swing.JScrollPane();
         ScheTable = new javax.swing.JTable();
         btnScheRefresh = new javax.swing.JButton();
+        btnPartInsert = new javax.swing.JButton();
         HisPanel = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         HisTable = new javax.swing.JTable();
         btnHisDelete = new javax.swing.JButton();
         btnHisRefresh = new javax.swing.JButton();
-        btnDetail = new javax.swing.JButton();
         jCheckBox2 = new javax.swing.JCheckBox();
         jCheckBox3 = new javax.swing.JCheckBox();
         DuesPanel = new javax.swing.JPanel();
@@ -208,8 +214,10 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(chkMale)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(chkFemale)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 761, Short.MAX_VALUE))
+                        .addGap(0, 615, Short.MAX_VALUE))
+                    .addGroup(MemPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 762, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(MemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(MemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -230,7 +238,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(chkFemale))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(MemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
                     .addGroup(MemPanelLayout.createSequentialGroup()
                         .addComponent(btnMemRefresh)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -265,27 +273,20 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel1.setText("년");
 
-        jLabel2.setText("장소 :");
+        jLabel2.setText("장소  : ");
 
-        jLabel3.setText("인원 수 :");
+        jLabel3.setText("인원 수  : ");
 
         jLabel4.setText("월");
 
         jLabel5.setText("일");
-
-        lstScheMember.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane2.setViewportView(lstScheMember);
 
         snpScheDescription.setColumns(20);
         snpScheDescription.setRows(1);
         snpScheDescription.setTabSize(1);
         jScrollPane3.setViewportView(snpScheDescription);
 
-        jLabel6.setText("활동 내용 :");
+        jLabel6.setText("활동 내용  : ");
 
         chkScheCompleted.setText("완료");
 
@@ -301,18 +302,24 @@ public class MainFrame extends javax.swing.JFrame {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
                 {null, null, null, null, null, null}
             },
             new String [] {
                 "날짜", "장소", "인원 수", "활동 내용", "참가 인원", "완료"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+        ));
+        ScheTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ScheTableMouseClicked(evt);
             }
         });
         jScrollPane6.setViewportView(ScheTable);
@@ -324,6 +331,13 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        btnPartInsert.setText("인원 등록");
+        btnPartInsert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPartInsertActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout SchePanelLayout = new javax.swing.GroupLayout(SchePanel);
         SchePanel.setLayout(SchePanelLayout);
         SchePanelLayout.setHorizontalGroup(
@@ -332,78 +346,82 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(SchePanelLayout.createSequentialGroup()
+                        .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(SchePanelLayout.createSequentialGroup()
+                                .addComponent(txtScheYear, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel1))
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtScheYear, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                            .addComponent(chkScheCompleted, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(SchePanelLayout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(snpScheMemberCount, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(SchePanelLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtScheMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtScheDay, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(16, 16, 16)
+                                .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel5)))
-                        .addGap(30, 30, 30)
-                        .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel6))
+                                .addComponent(jLabel2))
+                            .addGroup(SchePanelLayout.createSequentialGroup()
+                                .addComponent(snpScheMemberCount, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel6)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
-                            .addComponent(snpScheLocation)))
-                    .addComponent(jScrollPane6))
+                            .addComponent(snpScheLocation)
+                            .addComponent(jScrollPane3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnPartInsert)
+                            .addGroup(SchePanelLayout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addComponent(chkScheCompleted))))
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 762, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnScheInsert)
                     .addComponent(btnScheDelete)
-                    .addComponent(btnScheRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(7, Short.MAX_VALUE))
+                    .addComponent(btnScheRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         SchePanelLayout.setVerticalGroup(
             SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(SchePanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtScheYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1)
-                        .addComponent(jLabel4)
-                        .addComponent(txtScheDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel5)
-                        .addComponent(txtScheMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(snpScheLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2)
-                        .addComponent(btnScheRefresh)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(SchePanelLayout.createSequentialGroup()
-                        .addGap(1, 1, 1)
                         .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(chkScheCompleted)
-                            .addComponent(snpScheMemberCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)))
-                    .addComponent(jLabel6)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnScheInsert))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(snpScheLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnPartInsert))
+                        .addGap(7, 7, 7)
+                        .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel6)
+                                .addComponent(snpScheMemberCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel3))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(chkScheCompleted))
+                        .addGap(0, 9, Short.MAX_VALUE)
+                        .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(SchePanelLayout.createSequentialGroup()
+                                .addComponent(btnScheRefresh)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnScheInsert)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnScheDelete))
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(SchePanelLayout.createSequentialGroup()
-                        .addComponent(btnScheDelete)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtScheYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel4)
+                            .addComponent(txtScheDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)
+                            .addComponent(txtScheMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         jTabbedPane1.addTab("스케줄 관리", SchePanel);
@@ -461,13 +479,6 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        btnDetail.setText("상세 보기");
-        btnDetail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDetailActionPerformed(evt);
-            }
-        });
-
         jCheckBox2.setText("날짜순");
 
         jCheckBox3.setText("최신순");
@@ -478,18 +489,18 @@ public class MainFrame extends javax.swing.JFrame {
             HisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(HisPanelLayout.createSequentialGroup()
                 .addGroup(HisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 761, Short.MAX_VALUE)
                     .addGroup(HisPanelLayout.createSequentialGroup()
                         .addComponent(jCheckBox2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jCheckBox3)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 644, Short.MAX_VALUE))
+                    .addGroup(HisPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 762, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(HisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(HisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnHisDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnHisRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(btnDetail, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGroup(HisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnHisDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnHisRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         HisPanelLayout.setVerticalGroup(
@@ -501,11 +512,9 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jCheckBox3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(HisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
                     .addGroup(HisPanelLayout.createSequentialGroup()
                         .addComponent(btnHisRefresh)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnDetail)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnHisDelete)
                         .addGap(0, 0, Short.MAX_VALUE))))
@@ -611,9 +620,9 @@ public class MainFrame extends javax.swing.JFrame {
         DuesPanelLayout.setHorizontalGroup(
             DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DuesPanelLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(DuesPanelLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(DuesPanelLayout.createSequentialGroup()
                                 .addComponent(txtDuesYear, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -666,7 +675,7 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(btnDuesUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnDuesInsert, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnDuesDelete))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
         DuesPanelLayout.setVerticalGroup(
             DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -678,7 +687,7 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(jLabel8)
                             .addComponent(txtDuesLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtDuesDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10)))
                     .addGroup(DuesPanelLayout.createSequentialGroup()
@@ -710,15 +719,14 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(cbxDuesRepresentive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(DuesPanelLayout.createSequentialGroup()
                         .addComponent(btnDuesUpdate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnDuesInsert)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnDuesDelete)
-                        .addGap(0, 217, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addContainerGap(252, Short.MAX_VALUE))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
         );
 
         jTabbedPane1.addTab("회비 관리", DuesPanel);
@@ -780,6 +788,9 @@ public class MainFrame extends javax.swing.JFrame {
      * 회원 테이블 데이터를 DB에서 로드하여 화면에 표시
      */
     private void loadMemberTable() {
+        DefaultTableModel model = (DefaultTableModel) MemTable.getModel();
+        model.setRowCount(0); // 초기화
+        
         String sql = "SELECT id, username, name, student_id, gender, role, birth_date FROM users";
 
         DBConnection db = new DBConnection();
@@ -789,21 +800,103 @@ public class MainFrame extends javax.swing.JFrame {
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
 
-            int row = 0;
             while (rs.next()) {
-                MemTable.setValueAt(rs.getString("id"), row, 0);
-                MemTable.setValueAt(rs.getString("username"), row, 1);
-                MemTable.setValueAt(rs.getString("name"), row, 2);
-                MemTable.setValueAt(rs.getString("student_id"), row, 3);
-                MemTable.setValueAt(rs.getString("gender"), row, 4);
-                MemTable.setValueAt(rs.getString("role"), row, 5);
-                MemTable.setValueAt(rs.getString("birth_date"), row, 6);
-                
-                row++;
+                model.addRow(new Object[]{
+                    rs.getInt("id"),
+                    rs.getString("username"),
+                    rs.getString("name"),
+                    rs.getString("student_id"),
+                    rs.getString("gender"),
+                    rs.getString("role"),
+                    rs.getString("birth_date")
+                });
+            }
+        } catch (SQLException e) {
+            System.err.println("회원 테이블 로드 중 오류 발생: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    private void loadScheduleTable(){
+        scheduleIds.clear();
+
+        DefaultTableModel model = (DefaultTableModel) ScheTable.getModel();
+        model.setRowCount(0); // 테이블 완전 초기화
+
+        String sql = "SELECT id, schedule_date, location, member_count, description, participants, completed FROM schedules";
+
+        try (Connection conn = new DBConnection().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+
+                // 실제 id 저장
+                scheduleIds.add(rs.getInt("id"));
+
+                // 테이블에 데이터 행 추가
+                model.addRow(new Object[]{
+                    rs.getString("schedule_date"),
+                    rs.getString("location"),
+                    rs.getString("member_count"),
+                    rs.getString("description"),
+                    rs.getString("participants"),
+                    rs.getString("completed")
+                });
             }
 
         } catch (SQLException e) {
-            System.err.println("회원 테이블 로드 중 오류 발생: " + e.getMessage());
+            System.err.println("스케줄 테이블 로드 중 오류 발생: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
+    private void loadHistoryTable(){
+        DefaultTableModel model = (DefaultTableModel) HisTable.getModel();
+        model.setRowCount(0);
+
+        String sql = "SELECT activity_date, location, member_count, description, participants FROM activities";
+
+        try (Connection conn = new DBConnection().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                    rs.getString("activity_date"),
+                    rs.getString("location"),
+                    rs.getInt("member_count"),
+                    rs.getString("description"),
+                    rs.getString("participants")
+                });
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+        
+    private void loadDuesTable(){
+        DefaultTableModel model = (DefaultTableModel) DuesTable.getModel();
+        model.setRowCount(0);
+
+        String sql = "SELECT usage_date, location, representative, description, amount FROM dues";
+
+        try (Connection conn = new DBConnection().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                    rs.getString("usage_date"),
+                    rs.getString("location"),
+                    rs.getString("representative"),
+                    rs.getString("description"),
+                    rs.getInt("amount"),
+                    // 잔액 칼럼 직접 계산한다면 여기에 로직 넣기
+                });
+            }
+
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -846,18 +939,53 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnScheInsertActionPerformed
     //스케줄 관리 탭 일정 삭제 버튼
     private void btnScheDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnScheDeleteActionPerformed
+        int row = ScheTable.getSelectedRow();
 
+        // 1. 선택 여부 확인
+        if (row == -1 || row >= scheduleIds.size()) {
+            JOptionPane.showMessageDialog(this, "유효한 일정을 선택하세요.");
+            return;
+        }
+
+        // 2. scheduleIds에서 실제 ID 가져오기
+        int scheduleId = scheduleIds.get(row);
+
+        int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "정말로 삭제하시겠습니까?",
+                "일정 삭제",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirm != JOptionPane.YES_OPTION) return;
+
+        // 3. DB에서 삭제 실행
+        String sql = "DELETE FROM schedules WHERE id = ?";
+
+        try (Connection conn = new DBConnection().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, scheduleId);
+            pstmt.executeUpdate();
+
+            JOptionPane.showMessageDialog(this, "일정이 삭제되었습니다.");
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "삭제 중 오류 발생: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+
+        // 4. ArrayList 초기화 + 테이블 갱신
+        scheduleIds.clear();
+        loadScheduleTable();
     }//GEN-LAST:event_btnScheDeleteActionPerformed
     
     //활동 내역 탭 새로고침 버튼
     private void btnHisRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHisRefreshActionPerformed
 
     }//GEN-LAST:event_btnHisRefreshActionPerformed
-    //활동 내역 탭 상세 보기 버튼
-    private void btnDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailActionPerformed
 
-    }//GEN-LAST:event_btnDetailActionPerformed
-    //활동 내역 탭 활동 삭제 버튼
+   //활동 내역 탭 활동 삭제 버튼
     private void btnHisDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHisDeleteActionPerformed
         
     }//GEN-LAST:event_btnHisDeleteActionPerformed
@@ -874,8 +1002,98 @@ public class MainFrame extends javax.swing.JFrame {
     private void btnDuesDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuesDeleteActionPerformed
 
     }//GEN-LAST:event_btnDuesDeleteActionPerformed
-
     
+    //스케줄 관리 탭 인원 등록 버튼
+    private void btnPartInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPartInsertActionPerformed
+         
+        String year = txtScheYear.getText().trim();
+        String month = txtScheMonth.getText().trim();
+        String day = txtScheDay.getText().trim();
+
+        String date = year + "-" + month + "-" + day;
+        String location = snpScheLocation.getText();
+        int memberCount = (int) snpScheMemberCount.getValue();
+        String description = snpScheDescription.getText();
+        boolean completed = chkScheCompleted.isSelected();
+
+        if (year.isEmpty() || month.isEmpty() || day.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "날짜를 모두 입력해주세요.");
+            return;
+        }
+        if (location.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "장소를 입력해주세요.");
+            return;
+        }
+        if (description.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "활동 내용를 모두 입력해주세요.");
+            return;
+        }
+        
+        // 2. DB에 스케줄 먼저 저장하고 id 받기
+        int scheduleId = insertScheduleAndGetId(date, location, memberCount, description, completed);
+        
+        if (scheduleId == -1) {
+            System.out.println("스케줄 등록 실패");
+            return;
+        }
+
+
+        
+        // 3. 참가자 입력 프레임 열기
+        ParticipantsFrame frame = new ParticipantsFrame(scheduleId);
+        frame.setVisible(true);
+
+        // 4. 스케줄 테이블 새로고침
+        loadScheduleTable();
+    }//GEN-LAST:event_btnPartInsertActionPerformed
+
+    //스케줄 관리 탭에서 참가인원 행을 클릭했을 때(ParticipantsFrame 열림)
+    private void ScheTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ScheTableMouseClicked
+        int row = ScheTable.getSelectedRow();
+        int col = ScheTable.getSelectedColumn();
+
+        // row가 실제 데이터보다 크면 무시
+        if (row >= scheduleIds.size()) {
+            return;
+        }
+
+        // 참가자 칸(4번) 클릭했을 때만 열기
+        if (col == 4) {
+            int scheduleId = scheduleIds.get(row);
+            ParticipantsFrame frame = new ParticipantsFrame(scheduleId);
+            frame.setVisible(true);
+        }
+    }//GEN-LAST:event_ScheTableMouseClicked
+    
+    //schedules 테이블에 INSERT 후 반환
+    private int insertScheduleAndGetId(String date, String location, int memberCount, String description, boolean completed) {
+        int newId = -1;//초기화
+
+        String sql = "INSERT INTO schedules (schedule_date, location, member_count, description, completed) VALUES (?, ?, ?, ?, ?)";
+
+        try (Connection conn = new DBConnection().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+            pstmt.setString(1, date);
+            pstmt.setString(2, location);
+            pstmt.setInt(3, memberCount);
+            pstmt.setString(4, description);
+            pstmt.setBoolean(5, completed);
+
+            pstmt.executeUpdate();
+
+            //자동 생성된 키 받기
+            ResultSet keys = pstmt.getGeneratedKeys();
+            if (keys.next()) {
+                newId = keys.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return newId;
+    }
     
     /**
      * @param args the command line arguments
@@ -916,7 +1134,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTable MemTable;
     private javax.swing.JPanel SchePanel;
     private javax.swing.JTable ScheTable;
-    private javax.swing.JButton btnDetail;
     private javax.swing.JButton btnDuesDelete;
     private javax.swing.JButton btnDuesInsert;
     private javax.swing.JButton btnDuesUpdate;
@@ -927,6 +1144,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnMemInsert;
     private javax.swing.JButton btnMemRefresh;
     private javax.swing.JButton btnMemUpdate;
+    private javax.swing.JButton btnPartInsert;
     private javax.swing.JButton btnRoleChange;
     private javax.swing.JButton btnScheDelete;
     private javax.swing.JButton btnScheInsert;
@@ -956,7 +1174,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
@@ -966,7 +1183,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lblRemainDues;
     private javax.swing.JLabel lblTotalDues;
     private javax.swing.JLabel lblUserInfo;
-    private javax.swing.JList<String> lstScheMember;
     private javax.swing.JTextArea snpScheDescription;
     private javax.swing.JTextField snpScheLocation;
     private javax.swing.JSpinner snpScheMemberCount;
