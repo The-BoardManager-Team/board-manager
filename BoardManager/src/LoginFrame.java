@@ -124,16 +124,6 @@ public class LoginFrame extends javax.swing.JFrame {
 
         DBConnection db = new DBConnection();
 
-        // 로그인 검증
-        if (db.checkLogin(id, pw)) {
-            db.loadUserSession(id);
-            new MainFrame().setVisible(true);
-            this.dispose();
-        } else {
-            JOptionPane.showMessageDialog(this, "아이디 또는 비밀번호가 틀립니다.");
-            generateCaptcha(); // 캡챠 새로 생성
-        }
-        
         // 캡챠 검증
         if (!captchaInput.equalsIgnoreCase(captchaText)) {
             JOptionPane.showMessageDialog(this, "캡챠가 올바르지 않습니다.");
@@ -142,6 +132,16 @@ public class LoginFrame extends javax.swing.JFrame {
             return; // 로그인 중단
         }
         
+        // 로그인 검증
+        if (db.checkLogin(id, pw)) {
+            db.loadUserSession(id);
+            new MainFrame().setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "아이디 또는 비밀번호가 틀립니다.");
+            generateCaptcha(); // 캡챠 새로 생성
+            return; // 로그인 중단
+        }        
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void txtSignUpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSignUpMouseClicked
@@ -186,7 +186,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
         // 노이즈 추가
         g.setColor(Color.GRAY);
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 20; i++) {
             int x1 = rand.nextInt(width);
             int y1 = rand.nextInt(height);
             int x2 = rand.nextInt(width);

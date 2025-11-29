@@ -849,7 +849,6 @@ public class MainFrame extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    
     private void loadHistoryTable(){
         DefaultTableModel model = (DefaultTableModel) HisTable.getModel();
         model.setRowCount(0);
@@ -874,7 +873,6 @@ public class MainFrame extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-        
     private void loadDuesTable(){
         DefaultTableModel model = (DefaultTableModel) DuesTable.getModel();
         model.setRowCount(0);
