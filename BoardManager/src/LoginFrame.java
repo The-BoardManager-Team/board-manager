@@ -139,8 +139,7 @@ public class LoginFrame extends javax.swing.JFrame {
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "아이디 또는 비밀번호가 틀립니다.");
-            generateCaptcha(); // 캡챠 새로 생성
-            return; // 로그인 중단
+            generateCaptcha(); // 캡챠 새로 생성 (입력창도 자동 초기화됨)
         }        
     }//GEN-LAST:event_btnLoginActionPerformed
 
@@ -155,19 +154,23 @@ public class LoginFrame extends javax.swing.JFrame {
 
     //캡챠 텍스트 생성 및 정답 저장
     private void generateCaptcha() {
-        // 5자리 랜덤 문자열 만들기 (A-Z + 0-9)
-        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        // 혼동되는 문자 제외 (0, O, 1, I 제외)
+        String chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
         StringBuilder sb = new StringBuilder();
 
-        for (int i = 0; i < 5; i++) {
+        // 4-6자 랜덤 길이
+        int length = 4 + rand.nextInt(3); // 4, 5, 6 중 랜덤
+
+        for (int i = 0; i < length; i++) {
             sb.append(chars.charAt(rand.nextInt(chars.length())));
         }
 
         captchaText = sb.toString();   // 정답 저장
         drawCaptchaImage(captchaText); // 이미지 그리기
+        txtCaptchaInput.setText("");   // 입력창 초기화
     }
     
-    //캡챠 노이즈 생성
+    //캡챠 이미지 생성 (노이즈, 랜덤 폰트/각도 포함)
     private void drawCaptchaImage(String text) {
         int width = 120;
         int height = 40;
@@ -175,23 +178,55 @@ public class LoginFrame extends javax.swing.JFrame {
         BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         Graphics2D g = img.createGraphics();
 
-        // 배경
-        g.setColor(Color.WHITE);
+        // 배경색 설정 (밝은 회색)
+        g.setColor(new Color(240, 240, 240));
         g.fillRect(0, 0, width, height);
 
-        // 글자
-        g.setFont(new Font("Arial", Font.BOLD, 28));
-        g.setColor(Color.BLACK);
-        g.drawString(text, 15, 30);
+        // 텍스트 그리기 (각 문자마다 랜덤 스타일 적용)
+        String[] fontNames = {"Arial", "Verdana", "Courier New", "Georgia"};
+        int x = 10;
 
-        // 노이즈 추가
-        g.setColor(Color.GRAY);
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < text.length(); i++) {
+            char c = text.charAt(i);
+
+            // 랜덤 폰트 선택
+            String fontName = fontNames[rand.nextInt(fontNames.length)];
+            int fontSize = 22 + rand.nextInt(6); // 22-27 크기
+            g.setFont(new Font(fontName, Font.BOLD, fontSize));
+
+            // 랜덤 색상 (어두운 색상)
+            int r = rand.nextInt(100); // 0-99
+            int gr = rand.nextInt(100);
+            int b = rand.nextInt(100);
+            g.setColor(new Color(r, gr, b));
+
+            // 랜덤 각도 회전 (-15° ~ +15°)
+            double angle = Math.toRadians(-15 + rand.nextInt(31));
+            g.rotate(angle, x + 10, 25);
+            g.drawString(String.valueOf(c), x, 28);
+            g.rotate(-angle, x + 10, 25); // 회전 복원
+
+            x += 18; // 다음 문자 위치
+        }
+
+        // 노이즈 라인 추가 (3-5개)
+        g.setColor(new Color(150, 150, 150));
+        int lineCount = 3 + rand.nextInt(3); // 3-5개
+        for (int i = 0; i < lineCount; i++) {
             int x1 = rand.nextInt(width);
             int y1 = rand.nextInt(height);
             int x2 = rand.nextInt(width);
             int y2 = rand.nextInt(height);
             g.drawLine(x1, y1, x2, y2);
+        }
+
+        // 점 노이즈 추가 (50-80개)
+        int dotCount = 50 + rand.nextInt(31); // 50-80개
+        for (int i = 0; i < dotCount; i++) {
+            int dotX = rand.nextInt(width);
+            int dotY = rand.nextInt(height);
+            g.setColor(new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
+            g.fillOval(dotX, dotY, 1, 1);
         }
 
         g.dispose();
