@@ -5,20 +5,10 @@ import javax.swing.table.DefaultTableModel;
 
 public class MainFrame extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MainFrame.class.getName());
-
+    
     //스케줄 탭에서 id를 가져오는 리스트
     private ArrayList<Integer> scheduleIds = new ArrayList<>();
-
-    //활동 내역 탭에서 id를 가져오는 리스트
-    private ArrayList<Integer> activityIds = new ArrayList<>();
-
-    //회비 관리 탭에서 id를 가져오는 리스트
-    private ArrayList<Integer> duesIds = new ArrayList<>();
-
-    // 스케줄 수정 모드 관련
-    private boolean isEditMode = false;
-    private int editingScheduleId = -1;
-
+    
     public MainFrame() {
         initComponents();
 
@@ -37,27 +27,10 @@ public class MainFrame extends javax.swing.JFrame {
         loadMemberTable();
         loadScheduleTable();
         loadHistoryTable();
-        loadDuesHistory();
-
-        // 회비 관련 초기화
-        loadMembersForRepresentative();
-        setDefaultDuesDate(); // 회비 날짜 기본값 설정
-        updateDuesLabels();
-
-        // 스케줄 관련 초기화
-        setDefaultScheDate(); // 스케줄 날짜 기본값 설정
-
+        loadDuesTable();
+        
         String role = UserSession.getRole();
         applyRoleBasedTabs(role);
-
-        // 성별 필터 체크박스 리스너 추가
-        setupGenderFilters();
-
-        // 활동 내역 정렬 체크박스 리스너 추가
-        setupActivitySortFilters();
-
-        // 스케줄 정렬 체크박스 리스너 추가
-        setupScheduleSortFilters();
     }
 
     
@@ -90,6 +63,8 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         snpScheLocation = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        snpScheMemberCount = new javax.swing.JSpinner();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtScheDay = new javax.swing.JTextField();
@@ -102,9 +77,6 @@ public class MainFrame extends javax.swing.JFrame {
         ScheTable = new javax.swing.JTable();
         btnScheRefresh = new javax.swing.JButton();
         btnPartInsert = new javax.swing.JButton();
-        chkScheLatest = new javax.swing.JCheckBox();
-        chkScheDateOrder = new javax.swing.JCheckBox();
-        btnScheUpdate = new javax.swing.JButton();
         HisPanel = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         HisTable = new javax.swing.JTable();
@@ -138,7 +110,6 @@ public class MainFrame extends javax.swing.JFrame {
         lblTotalDues = new javax.swing.JLabel();
         lblRemainDues = new javax.swing.JLabel();
         lblDuesMemberCount = new javax.swing.JLabel();
-        btnDuesDeposit = new javax.swing.JButton();
         lblUserInfo = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
 
@@ -304,6 +275,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel2.setText("장소  : ");
 
+        jLabel3.setText("인원 수  : ");
+
         jLabel4.setText("월");
 
         jLabel5.setText("일");
@@ -365,17 +338,6 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        chkScheLatest.setText("최신순");
-
-        chkScheDateOrder.setText("날짜순");
-
-        btnScheUpdate.setText("일정 수정");
-        btnScheUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnScheUpdateActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout SchePanelLayout = new javax.swing.GroupLayout(SchePanel);
         SchePanel.setLayout(SchePanelLayout);
         SchePanelLayout.setHorizontalGroup(
@@ -384,12 +346,15 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(SchePanelLayout.createSequentialGroup()
-                        .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(SchePanelLayout.createSequentialGroup()
                                 .addComponent(txtScheYear, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel1))
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(SchePanelLayout.createSequentialGroup()
                                 .addComponent(txtScheMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel4)
@@ -399,10 +364,8 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel2))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SchePanelLayout.createSequentialGroup()
-                                .addComponent(chkScheDateOrder)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(chkScheLatest)
+                            .addGroup(SchePanelLayout.createSequentialGroup()
+                                .addComponent(snpScheMemberCount, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel6)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -420,8 +383,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnScheInsert)
                     .addComponent(btnScheDelete)
-                    .addComponent(btnScheRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnScheUpdate))
+                    .addComponent(btnScheRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         SchePanelLayout.setVerticalGroup(
@@ -438,8 +400,8 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel6)
-                                .addComponent(chkScheDateOrder)
-                                .addComponent(chkScheLatest))
+                                .addComponent(snpScheMemberCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel3))
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(chkScheCompleted))
                         .addGap(0, 9, Short.MAX_VALUE)
@@ -448,8 +410,6 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(btnScheRefresh)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnScheInsert)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnScheUpdate)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnScheDelete))
                             .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -533,7 +493,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(jCheckBox2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jCheckBox3)
-                        .addGap(0, 650, Short.MAX_VALUE))
+                        .addGap(0, 644, Short.MAX_VALUE))
                     .addGroup(HisPanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 762, Short.MAX_VALUE)))
@@ -644,7 +604,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel15.setText("잔여 회비 :");
 
-        jLabel16.setText("이번 달 회비 :");
+        jLabel16.setText("총 회비 :");
 
         lblTotalDues.setFont(new java.awt.Font("맑은 고딕", 1, 14)); // NOI18N
         lblTotalDues.setText("text");
@@ -654,13 +614,6 @@ public class MainFrame extends javax.swing.JFrame {
         lblRemainDues.setText("text");
 
         lblDuesMemberCount.setText("text");
-
-        btnDuesDeposit.setText("입금");
-        btnDuesDeposit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDuesDepositActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout DuesPanelLayout = new javax.swing.GroupLayout(DuesPanel);
         DuesPanel.setLayout(DuesPanelLayout);
@@ -713,10 +666,7 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(DuesPanelLayout.createSequentialGroup()
-                                .addComponent(lblTotalDues, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnDuesDeposit))
+                            .addComponent(lblTotalDues, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblRemainDues, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(DuesPanelLayout.createSequentialGroup()
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 761, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -725,7 +675,7 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(btnDuesUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnDuesInsert, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnDuesDelete))))
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
         DuesPanelLayout.setVerticalGroup(
             DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -745,8 +695,7 @@ public class MainFrame extends javax.swing.JFrame {
                             .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(txtDuesAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel16)
-                                .addComponent(lblTotalDues)
-                                .addComponent(btnDuesDeposit))
+                                .addComponent(lblTotalDues))
                             .addComponent(jLabel11))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -867,196 +816,13 @@ public class MainFrame extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-
-    /**
-     * 성별 필터에 따라 회원 테이블 로드
-     */
-    private void loadMemberTableByGender(String gender) {
-        DefaultTableModel model = (DefaultTableModel) MemTable.getModel();
-        model.setRowCount(0); // 초기화
-
-        String sql;
-        if ("전체".equals(gender)) {
-            sql = "SELECT id, username, name, student_id, gender, role, birth_date FROM users";
-        } else {
-            sql = "SELECT id, username, name, student_id, gender, role, birth_date FROM users WHERE gender = ?";
-        }
-
-        try (Connection conn = new DBConnection().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            // 전체가 아닌 경우에만 파라미터 설정
-            if (!"전체".equals(gender)) {
-                pstmt.setString(1, gender);
-            }
-
-            try (ResultSet rs = pstmt.executeQuery()) {
-                while (rs.next()) {
-                    model.addRow(new Object[]{
-                        rs.getInt("id"),
-                        rs.getString("username"),
-                        rs.getString("name"),
-                        rs.getString("student_id"),
-                        rs.getString("gender"),
-                        rs.getString("role"),
-                        rs.getString("birth_date")
-                    });
-                }
-            }
-        } catch (SQLException e) {
-            System.err.println("회원 테이블 로드 중 오류 발생: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * 현재 선택된 성별 필터에 따라 테이블 새로고침
-     */
-    private void refreshMemberTable() {
-        String selectedGender = "전체";
-        if (chkMale.isSelected()) {
-            selectedGender = "남";
-        } else if (chkFemale.isSelected()) {
-            selectedGender = "여";
-        }
-        loadMemberTableByGender(selectedGender);
-    }
-
-    /**
-     * 성별 필터 체크박스에 이벤트 리스너 설정
-     */
-    private void setupGenderFilters() {
-        chkAll.addActionListener(e -> refreshMemberTable());
-        chkMale.addActionListener(e -> refreshMemberTable());
-        chkFemale.addActionListener(e -> refreshMemberTable());
-    }
-
-    /**
-     * 활동 내역 정렬 체크박스 리스너 설정
-     */
-    private void setupActivitySortFilters() {
-        // jCheckBox2: 날짜순 (ASC)
-        // jCheckBox3: 최신순 (DESC)
-        jCheckBox2.addActionListener(e -> {
-            if (jCheckBox2.isSelected()) {
-                jCheckBox3.setSelected(false);
-                loadHistoryTable("ASC");
-            }
-        });
-
-        jCheckBox3.addActionListener(e -> {
-            if (jCheckBox3.isSelected()) {
-                jCheckBox2.setSelected(false);
-                loadHistoryTable("DESC");
-            }
-        });
-
-        // 기본값: 최신순 선택
-        jCheckBox3.setSelected(true);
-    }
-
-    /**
-     * 스케줄 정렬 체크박스 리스너 설정
-     * NetBeans에서 chkScheLatest(최신순), chkScheDateOrder(날짜순) 추가 필요
-     */
-    private void setupScheduleSortFilters() {
-        // TODO: NetBeans Form Editor에서 체크박스 추가 후 주석 해제
-        
-        // chkScheLatest: 최신순 (DESC)
-        // chkScheDateOrder: 날짜순 (ASC)
-        chkScheLatest.addActionListener(e -> {
-            if (chkScheLatest.isSelected()) {
-                chkScheDateOrder.setSelected(false);
-                loadScheduleTable("DESC");
-            }
-        });
-
-        chkScheDateOrder.addActionListener(e -> {
-            if (chkScheDateOrder.isSelected()) {
-                chkScheLatest.setSelected(false);
-                loadScheduleTable("ASC");
-            }
-        });
-
-        // 기본값: 최신순 선택
-        chkScheLatest.setSelected(true);
-        
-    }
-
-    /**
-     * 회원 삭제 (PreparedStatement로 SQL Injection 방지)
-     */
-    private void deleteMember(int userId) {
-        String sql = "DELETE FROM users WHERE id=?";
-
-        try (Connection conn = new DBConnection().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setInt(1, userId);
-
-            int affected = pstmt.executeUpdate();
-            if (affected > 0) {
-                JOptionPane.showMessageDialog(this, "회원이 삭제되었습니다.");
-            } else {
-                JOptionPane.showMessageDialog(this, "회원 삭제에 실패했습니다.");
-            }
-
-        } catch (SQLException e) {
-            System.err.println("회원 삭제 중 오류 발생: " + e.getMessage());
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "회원 삭제 중 오류가 발생했습니다: " + e.getMessage());
-        }
-    }
-
-    /**
-     * 회원 직책 변경 (권한 검증 포함)
-     */
-    private void changeRole(int userId, String newRole) {
-        // 권한 검증: 현재 로그인한 사용자가 admin 또는 president인지 확인
-        String currentUserRole = UserSession.getRole();
-        if (!("admin".equals(currentUserRole) || "president".equals(currentUserRole))) {
-            JOptionPane.showMessageDialog(this, "직책 변경 권한이 없습니다.");
-            return;
-        }
-
-        String sql = "UPDATE users SET role=? WHERE id=?";
-
-        try (Connection conn = new DBConnection().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setString(1, newRole);
-            pstmt.setInt(2, userId);
-
-            int affected = pstmt.executeUpdate();
-            if (affected > 0) {
-                JOptionPane.showMessageDialog(this, "직책이 변경되었습니다.");
-            } else {
-                JOptionPane.showMessageDialog(this, "직책 변경에 실패했습니다.");
-            }
-
-        } catch (SQLException e) {
-            System.err.println("직책 변경 중 오류 발생: " + e.getMessage());
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "직책 변경 중 오류가 발생했습니다: " + e.getMessage());
-        }
-    }
-
-    public void loadScheduleTable(){
-        loadScheduleTable("DESC"); // 기본값: 최신순
-    }
-
-    /**
-     * 스케줄 테이블 로드 (정렬 옵션 포함)
-     * @param sortOrder "ASC" (날짜순) 또는 "DESC" (최신순)
-     */
-    public void loadScheduleTable(String sortOrder){
+    private void loadScheduleTable(){
         scheduleIds.clear();
 
         DefaultTableModel model = (DefaultTableModel) ScheTable.getModel();
         model.setRowCount(0); // 테이블 완전 초기화
 
-        String sql = "SELECT id, schedule_date, location, member_count, description, participants, completed " +
-                     "FROM schedules ORDER BY schedule_date " + sortOrder;
+        String sql = "SELECT id, schedule_date, location, member_count, description, participants, completed FROM schedules";
 
         try (Connection conn = new DBConnection().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -1083,36 +849,17 @@ public class MainFrame extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    /**
-     * 활동 내역 테이블 로드 (정렬 옵션 포함)
-     */
-    private void loadHistoryTable() {
-        loadHistoryTable("DESC"); // 기본값: 최신순
-    }
-
-    /**
-     * 활동 내역 테이블 로드 (정렬 옵션 지정)
-     * @param sortOrder "ASC" (날짜순) 또는 "DESC" (최신순)
-     */
-    private void loadHistoryTable(String sortOrder) {
-        activityIds.clear();
-
+    private void loadHistoryTable(){
         DefaultTableModel model = (DefaultTableModel) HisTable.getModel();
         model.setRowCount(0);
 
-        // 정렬 방식에 따라 SQL 쿼리 구성
-        String sql = "SELECT id, activity_date, location, member_count, description, participants " +
-                     "FROM activities ORDER BY activity_date " + sortOrder;
+        String sql = "SELECT activity_date, location, member_count, description, participants FROM activities";
 
         try (Connection conn = new DBConnection().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
-                // 실제 id 저장
-                activityIds.add(rs.getInt("id"));
-
-                // 테이블에 데이터 행 추가
                 model.addRow(new Object[]{
                     rs.getString("activity_date"),
                     rs.getString("location"),
@@ -1123,334 +870,32 @@ public class MainFrame extends javax.swing.JFrame {
             }
 
         } catch (SQLException e) {
-            System.err.println("활동 내역 테이블 로드 중 오류 발생: " + e.getMessage());
             e.printStackTrace();
         }
     }
-    /**
-     * 회비 사용 내역 테이블 로드 (잔액 계산 포함)
-     * 최신순으로 정렬
-     */
-    private void loadDuesHistory() {
-        duesIds.clear();
+    private void loadDuesTable(){
         DefaultTableModel model = (DefaultTableModel) DuesTable.getModel();
         model.setRowCount(0);
 
-        String sql = "SELECT id, usage_date, location, representative, description, amount " +
-                     "FROM dues ORDER BY usage_date DESC";
-
-        // 현재 총 회비와 사용 금액 계산
-        int currentDues = getCurrentDues();
-        int usedAmount = calculateUsedAmount();
-        int currentBalance = currentDues - usedAmount;
+        String sql = "SELECT usage_date, location, representative, description, amount FROM dues";
 
         try (Connection conn = new DBConnection().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
 
-            // 최신순이므로 잔액을 역순으로 계산
-            ArrayList<Object[]> rows = new ArrayList<>();
-
             while (rs.next()) {
-                duesIds.add(rs.getInt("id"));
-
-                rows.add(new Object[]{
+                model.addRow(new Object[]{
                     rs.getString("usage_date"),
                     rs.getString("location"),
                     rs.getString("representative"),
                     rs.getString("description"),
                     rs.getInt("amount"),
-                    null  // 잔액은 나중에 계산
+                    // 잔액 칼럼 직접 계산한다면 여기에 로직 넣기
                 });
             }
 
-            // 잔액 계산 (최신순이므로 현재 잔액부터 시작해서 역으로 계산)
-            int balance = currentBalance;
-            for (int i = 0; i < rows.size(); i++) {
-                Object[] row = rows.get(i);
-                row[5] = balance; // 잔액 설정
-                balance += (int) row[4]; // 이전 잔액 = 현재 잔액 + 사용 금액
-                model.addRow(row);
-            }
-
         } catch (SQLException e) {
-            System.err.println("회비 내역 로드 중 오류 발생: " + e.getMessage());
             e.printStackTrace();
-        }
-    }
-
-    /**
-     * 회비 날짜 입력 필드에 오늘 날짜를 기본값으로 설정
-     */
-    private void setDefaultDuesDate() {
-        java.time.LocalDate today = java.time.LocalDate.now();
-        txtDuesYear.setText(String.valueOf(today.getYear()));
-        txtDuesMonth.setText(String.valueOf(today.getMonthValue()));
-        txtDuesDay.setText(String.valueOf(today.getDayOfMonth()));
-    }
-
-    /**
-     * 스케줄 날짜 입력 필드에 오늘 날짜를 기본값으로 설정
-     */
-    private void setDefaultScheDate() {
-        java.time.LocalDate today = java.time.LocalDate.now();
-        txtScheYear.setText(String.valueOf(today.getYear()));
-        txtScheMonth.setText(String.valueOf(today.getMonthValue()));
-        txtScheDay.setText(String.valueOf(today.getDayOfMonth()));
-    }
-
-    /**
-     * dues_settings에서 현재 총 회비 조회
-     * @return 현재 총 회비
-     */
-    private int getCurrentDues() {
-        String sql = "SELECT current_dues FROM dues_settings WHERE id=1";
-
-        try (Connection conn = new DBConnection().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
-
-            if (rs.next()) {
-                return rs.getInt("current_dues");
-            }
-
-        } catch (SQLException e) {
-            System.err.println("현재 회비 조회 중 오류 발생: " + e.getMessage());
-            e.printStackTrace();
-        }
-
-        return 0;
-    }
-
-    /**
-     * 이번달 회비 계산 (평회원 수 × 10,000원)
-     * @return 이번달 회비
-     */
-    private int calculateMonthlyDues() {
-        String sql = "SELECT COUNT(*) as member_count FROM users WHERE role='member'";
-
-        try (Connection conn = new DBConnection().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
-
-            if (rs.next()) {
-                int memberCount = rs.getInt("member_count");
-                return memberCount * 10000;
-            }
-
-        } catch (SQLException e) {
-            System.err.println("회원 수 조회 중 오류 발생: " + e.getMessage());
-            e.printStackTrace();
-        }
-
-        return 0;
-    }
-
-    /**
-     * 사용 금액 합계 계산
-     * @return 총 사용 금액
-     */
-    private int calculateUsedAmount() {
-        String sql = "SELECT COALESCE(SUM(amount), 0) as total_used FROM dues";
-
-        try (Connection conn = new DBConnection().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
-
-            if (rs.next()) {
-                return rs.getInt("total_used");
-            }
-
-        } catch (SQLException e) {
-            System.err.println("사용 금액 조회 중 오류 발생: " + e.getMessage());
-            e.printStackTrace();
-        }
-
-        return 0;
-    }
-
-    /**
-     * 잔여 회비 계산
-     * @return 잔여 회비
-     */
-    private int calculateBalance() {
-        return getCurrentDues() - calculateUsedAmount();
-    }
-
-    /**
-     * 이번달 회비 입금 처리 (dues_settings 업데이트)
-     */
-    private void addMonthlyDues(int amount) {
-        // 권한 체크
-        String role = UserSession.getRole();
-        if (!("admin".equals(role) || "president".equals(role))) {
-            JOptionPane.showMessageDialog(this, "회비 입금 권한이 없습니다.");
-            return;
-        }
-
-        String sql = "UPDATE dues_settings SET current_dues = current_dues + ? WHERE id=1";
-
-        try (Connection conn = new DBConnection().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setInt(1, amount);
-
-            int affected = pstmt.executeUpdate();
-            if (affected > 0) {
-                JOptionPane.showMessageDialog(this,
-                    String.format("%,d원이 입금되었습니다!", amount));
-                updateDuesLabels();
-            } else {
-                JOptionPane.showMessageDialog(this, "입금 처리에 실패했습니다.");
-            }
-
-        } catch (SQLException e) {
-            System.err.println("회비 입금 중 오류 발생: " + e.getMessage());
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "회비 입금 중 오류가 발생했습니다: " + e.getMessage());
-        }
-    }
-
-    /**
-     * 회비 라벨 업데이트 (회원 수, 이번달 회비, 잔여 회비)
-     */
-    private void updateDuesLabels() {
-        // 회원 수 계산
-        String sql = "SELECT COUNT(*) as member_count FROM users WHERE role='member'";
-        int memberCount = 0;
-
-        try (Connection conn = new DBConnection().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
-
-            if (rs.next()) {
-                memberCount = rs.getInt("member_count");
-            }
-
-        } catch (SQLException e) {
-            System.err.println("회원 수 조회 중 오류 발생: " + e.getMessage());
-            e.printStackTrace();
-        }
-
-        int monthlyDues = calculateMonthlyDues(); // 이번달 회비 (인원수 × 10,000)
-        int balance = calculateBalance(); // 잔여 회비
-
-        // 라벨 업데이트
-        lblDuesMemberCount.setText(memberCount + "명");
-        lblTotalDues.setText(String.format("%,d원", monthlyDues)); // 이번달 회비 표시
-        lblRemainDues.setText(String.format("%,d원", balance));
-    }
-
-    /**
-     * 대표자 선택용 콤보박스에 회원 목록 로드
-     */
-    private void loadMembersForRepresentative() {
-        cbxDuesRepresentive.removeAllItems();
-
-        String sql = "SELECT name FROM users ORDER BY name";
-
-        try (Connection conn = new DBConnection().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
-
-            while (rs.next()) {
-                cbxDuesRepresentive.addItem(rs.getString("name"));
-            }
-
-        } catch (SQLException e) {
-            System.err.println("회원 목록 로드 중 오류 발생: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * 회비 사용 내역 등록 (날짜 수정 가능)
-     */
-    private void registerDues(String date, String location, String representative,
-                              String description, int amount) {
-        // 권한 체크: admin, president만 가능
-        String role = UserSession.getRole();
-        if (!("admin".equals(role) || "president".equals(role))) {
-            JOptionPane.showMessageDialog(this, "회비 등록 권한이 없습니다.");
-            return;
-        }
-
-        String sql = "INSERT INTO dues (usage_date, location, representative, description, amount, created_by) " +
-                     "VALUES (?, ?, ?, ?, ?, ?)";
-
-        try (Connection conn = new DBConnection().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setString(1, date);
-            pstmt.setString(2, location);
-            pstmt.setString(3, representative);
-            pstmt.setString(4, description);
-            pstmt.setInt(5, amount);
-            pstmt.setString(6, UserSession.getUserId());
-
-            int affected = pstmt.executeUpdate();
-            if (affected > 0) {
-                JOptionPane.showMessageDialog(this, "회비 사용 내역이 등록되었습니다!");
-
-                // 입력 필드 초기화 (날짜는 오늘로 재설정)
-                clearDuesInputs();
-
-                // 테이블 및 라벨 새로고침
-                loadDuesHistory();
-                updateDuesLabels();
-            } else {
-                JOptionPane.showMessageDialog(this, "회비 등록에 실패했습니다.");
-            }
-
-        } catch (SQLException e) {
-            System.err.println("회비 등록 중 오류 발생: " + e.getMessage());
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "회비 등록 중 오류가 발생했습니다: " + e.getMessage());
-        }
-    }
-
-    /**
-     * 회비 입력 필드 초기화 (날짜는 오늘로 재설정)
-     */
-    private void clearDuesInputs() {
-        setDefaultDuesDate(); // 날짜를 오늘로 재설정
-        txtDuesLocation.setText("");
-        txtDuesDescription.setText("");
-        txtDuesAmount.setText("");
-        if (cbxDuesRepresentive.getItemCount() > 0) {
-            cbxDuesRepresentive.setSelectedIndex(0);
-        }
-    }
-
-    /**
-     * 회비 사용 내역 삭제
-     */
-    private void deleteDues(int duesId) {
-        // 권한 체크: admin, president만 가능
-        String role = UserSession.getRole();
-        if (!("admin".equals(role) || "president".equals(role))) {
-            JOptionPane.showMessageDialog(this, "회비 삭제 권한이 없습니다.");
-            return;
-        }
-
-        String sql = "DELETE FROM dues WHERE id=?";
-
-        try (Connection conn = new DBConnection().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setInt(1, duesId);
-
-            int affected = pstmt.executeUpdate();
-            if (affected > 0) {
-                JOptionPane.showMessageDialog(this, "회비 내역이 삭제되었습니다.");
-            } else {
-                JOptionPane.showMessageDialog(this, "회비 삭제에 실패했습니다.");
-            }
-
-        } catch (SQLException e) {
-            System.err.println("회비 삭제 중 오류 발생: " + e.getMessage());
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "회비 삭제 중 오류가 발생했습니다: " + e.getMessage());
         }
     }
     
@@ -1463,385 +908,33 @@ public class MainFrame extends javax.swing.JFrame {
 
     //인원 관리 탭 새로고침 버튼
     private void btnMemRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMemRefreshActionPerformed
-        refreshMemberTable();
-        JOptionPane.showMessageDialog(this, "회원 목록이 새로고침되었습니다.");
+        
     }//GEN-LAST:event_btnMemRefreshActionPerformed
     //인원 관리 탭 삽입 버튼
     private void btnMemInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMemInsertActionPerformed
-        // 권한 체크: admin, president만 가능
-        String role = UserSession.getRole();
-        if (!("admin".equals(role) || "president".equals(role))) {
-            JOptionPane.showMessageDialog(this, "회원 추가 권한이 없습니다.");
-            return;
-        }
-
-        // 회원 추가 다이얼로그 열기 (MainFrame에서 호출됨을 표시)
-        new SignUpFrame(true).setVisible(true);
+        
     }//GEN-LAST:event_btnMemInsertActionPerformed
     //인원 관리 탭 변경 버튼
     private void btnMemUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMemUpdateActionPerformed
-        // 선택된 행 확인
-        int selectedRow = MemTable.getSelectedRow();
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "수정할 회원을 선택해주세요.");
-            return;
-        }
-
-        // 선택된 회원 정보 가져오기
-        int userId = (int) MemTable.getValueAt(selectedRow, 0);
-        String username = (String) MemTable.getValueAt(selectedRow, 1);
-        String name = (String) MemTable.getValueAt(selectedRow, 2);
-        String studentId = (String) MemTable.getValueAt(selectedRow, 3);
-        String gender = (String) MemTable.getValueAt(selectedRow, 4);
-        String role = (String) MemTable.getValueAt(selectedRow, 5);
-        String birthDate = (String) MemTable.getValueAt(selectedRow, 6);
-
-        // 권한 체크: admin 또는 본인만 가능
-        String currentUserRole = UserSession.getRole();
-        String currentUsername = UserSession.getUserId();
-
-        if (!("admin".equals(currentUserRole)) && !username.equals(currentUsername)) {
-            JOptionPane.showMessageDialog(this,
-                "본인 또는 관리자만 회원 정보를 수정할 수 있습니다.");
-            return;
-        }
-
-        // SignUpFrame을 수정 모드로 열기
-        new SignUpFrame(userId, username, name, studentId, gender, birthDate, "").setVisible(true);
-
-        // 테이블 새로고침 (SignUpFrame 닫힌 후 자동으로 반영되지 않으므로 새로고침 버튼 사용 필요)
+        
     }//GEN-LAST:event_btnMemUpdateActionPerformed
     //인원 관리 직책 변경 버튼
     private void btnRoleChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRoleChangeActionPerformed
-        // 권한 체크: admin, president만 가능
-        String currentUserRole = UserSession.getRole();
-        if (!("admin".equals(currentUserRole) || "president".equals(currentUserRole))) {
-            JOptionPane.showMessageDialog(this, "직책 변경 권한이 없습니다.");
-            return;
-        }
-
-        // 선택된 행 확인
-        int selectedRow = MemTable.getSelectedRow();
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "직책을 변경할 회원을 선택해주세요.");
-            return;
-        }
-
-        // 선택된 회원 정보 가져오기
-        int userId = (int) MemTable.getValueAt(selectedRow, 0);
-        String username = (String) MemTable.getValueAt(selectedRow, 1);
-        String name = (String) MemTable.getValueAt(selectedRow, 2);
-        String currentRole = (String) MemTable.getValueAt(selectedRow, 5);
-
-        // 직책 선택
-        String[] roles = {"admin", "president", "member"};
-        String[] roleLabels = {"관리자", "부장", "평회원"};
-
-        String selectedRoleLabel = (String) JOptionPane.showInputDialog(
-                this,
-                name + "(" + username + ")의 직책을 변경하세요:",
-                "직책 변경",
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                roleLabels,
-                currentRole
-        );
-
-        if (selectedRoleLabel == null) {
-            return; // 취소
-        }
-
-        // 한글 라벨을 영문 role로 변환
-        String newRole = "";
-        switch (selectedRoleLabel) {
-            case "관리자":
-                newRole = "admin";
-                break;
-            case "부장":
-                newRole = "president";
-                break;
-            case "평회원":
-                newRole = "member";
-                break;
-        }
-
-        // DB 업데이트
-        changeRole(userId, newRole);
-
-        // 테이블 새로고침
-        refreshMemberTable();
+        
     }//GEN-LAST:event_btnRoleChangeActionPerformed
     //인원 관리 탭 삭제 버튼
     private void btnMemDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMemDeleteActionPerformed
-        // 권한 체크: admin, president만 가능
-        String role = UserSession.getRole();
-        if (!("admin".equals(role) || "president".equals(role))) {
-            JOptionPane.showMessageDialog(this, "회원 삭제 권한이 없습니다.");
-            return;
-        }
-
-        // 선택된 행 확인
-        int selectedRow = MemTable.getSelectedRow();
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "삭제할 회원을 선택해주세요.");
-            return;
-        }
-
-        // 선택된 회원 정보 가져오기
-        int userId = (int) MemTable.getValueAt(selectedRow, 0);
-        String username = (String) MemTable.getValueAt(selectedRow, 1);
-        String name = (String) MemTable.getValueAt(selectedRow, 2);
-
-        // 삭제 확인
-        int confirm = JOptionPane.showConfirmDialog(
-                this,
-                "정말로 '" + name + "' (" + username + ") 회원을 삭제하시겠습니까?",
-                "회원 삭제 확인",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.WARNING_MESSAGE
-        );
-
-        if (confirm != JOptionPane.YES_OPTION) {
-            return;
-        }
-
-        // DB에서 삭제
-        deleteMember(userId);
-
-        // 테이블 새로고침
-        refreshMemberTable();
+        
     }//GEN-LAST:event_btnMemDeleteActionPerformed
     
     //스케줄 관리 탭 새로고침 버튼
     private void btnScheRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnScheRefreshActionPerformed
-        loadScheduleTable();
-        JOptionPane.showMessageDialog(this, "스케줄이 새로고침되었습니다.");
+
     }//GEN-LAST:event_btnScheRefreshActionPerformed
     //스케줄 관리 탭 일정 등록 버튼
     private void btnScheInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnScheInsertActionPerformed
-        // 입력 정보 가져오기
-        String year = txtScheYear.getText().trim();
-        String month = txtScheMonth.getText().trim();
-        String day = txtScheDay.getText().trim();
-        String date = year + "-" + month + "-" + day;
-        String location = snpScheLocation.getText().trim();
-        String description = snpScheDescription.getText().trim();
-        boolean completed = chkScheCompleted.isSelected();
 
-        // 입력 검증
-        if (year.isEmpty() || month.isEmpty() || day.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "날짜를 모두 입력해주세요.");
-            return;
-        }
-        if (location.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "장소를 입력해주세요.");
-            return;
-        }
-        if (description.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "활동 내용을 입력해주세요.");
-            return;
-        }
-
-        // 편집 모드에 따라 등록 또는 수정 수행
-        if (isEditMode) {
-            // 수정 모드: 기존 스케줄 업데이트
-            updateSchedule(editingScheduleId, date, location, description, completed);
-        } else {
-            // 등록 모드: 새 스케줄 등록 (인원수는 0으로 시작, 참가자 추가 시 자동 업데이트)
-            registerSchedule(date, location, 0, description, completed);
-        }
-
-        // 입력 필드 초기화 (편집 모드 해제 포함)
-        clearScheduleInputs();
-
-        // 테이블 새로고침
-        loadScheduleTable();
     }//GEN-LAST:event_btnScheInsertActionPerformed
-
-    /**
-     * 스케줄 등록 (참가자 없이)
-     */
-    private void registerSchedule(String date, String location, int memberCount,
-                                  String description, boolean completed) {
-        // 완료 체크 시 바로 activities에만 저장
-        if (completed) {
-            String sql = "INSERT INTO activities (activity_date, location, member_count, description, participants) " +
-                         "VALUES (?, ?, ?, ?, ?)";
-
-            try (Connection conn = new DBConnection().getConnection();
-                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-                pstmt.setString(1, date);
-                pstmt.setString(2, location);
-                pstmt.setInt(3, memberCount);
-                pstmt.setString(4, description);
-                pstmt.setString(5, ""); // 참가자 없음
-
-                int affected = pstmt.executeUpdate();
-
-                if (affected > 0) {
-                    JOptionPane.showMessageDialog(this, "완료된 활동이 활동 내역에 등록되었습니다!");
-                    loadHistoryTable(); // 활동 내역 테이블 새로고침
-                } else {
-                    JOptionPane.showMessageDialog(this, "활동 등록에 실패했습니다.");
-                }
-
-            } catch (SQLException e) {
-                System.err.println("활동 등록 중 오류 발생: " + e.getMessage());
-                e.printStackTrace();
-                JOptionPane.showMessageDialog(this, "활동 등록 중 오류가 발생했습니다: " + e.getMessage());
-            }
-
-        } else {
-            // 미완료 스케줄은 schedules에 저장
-            String sql = "INSERT INTO schedules (schedule_date, location, member_count, description, completed) " +
-                         "VALUES (?, ?, ?, ?, ?)";
-
-            try (Connection conn = new DBConnection().getConnection();
-                 PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-
-                pstmt.setString(1, date);
-                pstmt.setString(2, location);
-                pstmt.setInt(3, memberCount);
-                pstmt.setString(4, description);
-                pstmt.setBoolean(5, completed);
-
-                int affected = pstmt.executeUpdate();
-
-                if (affected > 0) {
-                    JOptionPane.showMessageDialog(this, "일정이 등록되었습니다!");
-                } else {
-                    JOptionPane.showMessageDialog(this, "일정 등록에 실패했습니다.");
-                }
-
-            } catch (SQLException e) {
-                System.err.println("스케줄 등록 중 오류 발생: " + e.getMessage());
-                e.printStackTrace();
-                JOptionPane.showMessageDialog(this, "일정 등록 중 오류가 발생했습니다: " + e.getMessage());
-            }
-        }
-    }
-
-    /**
-     * 스케줄 입력 필드 초기화 (날짜는 오늘로 재설정)
-     */
-    private void clearScheduleInputs() {
-        setDefaultScheDate(); // 날짜를 오늘로 재설정
-        snpScheLocation.setText("");
-        snpScheDescription.setText("");
-        chkScheCompleted.setSelected(false);
-
-        // 수정 모드 해제
-        isEditMode = false;
-        editingScheduleId = -1;
-        btnScheInsert.setText("일정 등록"); // 버튼 텍스트 원래대로
-        btnPartInsert.setText("인원 등록"); // 인원 버튼 텍스트 원래대로
-    }
-
-    /**
-     * 선택한 스케줄을 입력 필드에 로드 (수정 모드)
-     */
-    private void loadScheduleForEdit(int scheduleId) {
-        String sql = "SELECT schedule_date, location, description, completed FROM schedules WHERE id=?";
-
-        try (Connection conn = new DBConnection().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setInt(1, scheduleId);
-            ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                // 날짜 파싱
-                String date = rs.getString("schedule_date");
-                String[] dateParts = date.split("-");
-                txtScheYear.setText(dateParts[0]);
-                txtScheMonth.setText(dateParts[1]);
-                txtScheDay.setText(dateParts[2]);
-
-                // 기타 정보 로드
-                snpScheLocation.setText(rs.getString("location"));
-                snpScheDescription.setText(rs.getString("description"));
-                chkScheCompleted.setSelected(rs.getBoolean("completed"));
-
-                // 수정 모드 활성화
-                isEditMode = true;
-                editingScheduleId = scheduleId;
-                btnScheInsert.setText("일정 수정 완료"); // 버튼 텍스트 변경
-                btnPartInsert.setText("인원 수정"); // 인원 버튼 텍스트 변경
-
-                JOptionPane.showMessageDialog(this, "수정할 데이터를 불러왔습니다. 수정 후 '일정 수정 완료' 버튼을 눌러주세요.");
-            }
-
-        } catch (SQLException e) {
-            System.err.println("스케줄 로드 중 오류 발생: " + e.getMessage());
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "스케줄 로드 중 오류가 발생했습니다: " + e.getMessage());
-        }
-    }
-
-    /**
-     * 스케줄 업데이트
-     */
-    private void updateSchedule(int scheduleId, String date, String location, String description, boolean completed) {
-        // 완료 체크 시 activities로 이동
-        if (completed) {
-            // 먼저 스케줄 정보 업데이트 (날짜, 장소, 내용)
-            String updateSql = "UPDATE schedules SET schedule_date=?, location=?, description=? WHERE id=?";
-
-            try (Connection conn = new DBConnection().getConnection();
-                 PreparedStatement pstmt = conn.prepareStatement(updateSql)) {
-
-                pstmt.setString(1, date);
-                pstmt.setString(2, location);
-                pstmt.setString(3, description);
-                pstmt.setInt(4, scheduleId);
-
-                pstmt.executeUpdate();
-
-            } catch (SQLException e) {
-                System.err.println("스케줄 업데이트 중 오류 발생: " + e.getMessage());
-                e.printStackTrace();
-                JOptionPane.showMessageDialog(this, "일정 수정 중 오류가 발생했습니다: " + e.getMessage());
-                return;
-            }
-
-            // activities로 이동 (schedules에서 삭제)
-            completeSchedule(scheduleId);
-            JOptionPane.showMessageDialog(this, "일정이 완료되어 활동 내역으로 이동되었습니다!");
-            loadScheduleTable(); // 스케줄 테이블 새로고침
-            loadHistoryTable(); // 활동 내역 테이블 새로고침
-            clearScheduleInputs(); // 입력 필드 초기화 및 수정 모드 해제
-
-        } else {
-            // 완료 체크 안 함: 일반 업데이트
-            String sql = "UPDATE schedules SET schedule_date=?, location=?, description=?, completed=? WHERE id=?";
-
-            try (Connection conn = new DBConnection().getConnection();
-                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-                pstmt.setString(1, date);
-                pstmt.setString(2, location);
-                pstmt.setString(3, description);
-                pstmt.setBoolean(4, completed);
-                pstmt.setInt(5, scheduleId);
-
-                int affected = pstmt.executeUpdate();
-                if (affected > 0) {
-                    JOptionPane.showMessageDialog(this, "일정이 수정되었습니다!");
-                    loadScheduleTable(); // 테이블 새로고침
-                    clearScheduleInputs(); // 입력 필드 초기화 및 수정 모드 해제
-                } else {
-                    JOptionPane.showMessageDialog(this, "일정 수정에 실패했습니다.");
-                }
-
-            } catch (SQLException e) {
-                System.err.println("스케줄 수정 중 오류 발생: " + e.getMessage());
-                e.printStackTrace();
-                JOptionPane.showMessageDialog(this, "일정 수정 중 오류가 발생했습니다: " + e.getMessage());
-            }
-        }
-    }
-
     //스케줄 관리 탭 일정 삭제 버튼
     private void btnScheDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnScheDeleteActionPerformed
         int row = ScheTable.getSelectedRow();
@@ -1887,189 +980,37 @@ public class MainFrame extends javax.swing.JFrame {
     
     //활동 내역 탭 새로고침 버튼
     private void btnHisRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHisRefreshActionPerformed
-        // 현재 선택된 정렬 방식으로 새로고침
-        String sortOrder = jCheckBox2.isSelected() ? "ASC" : "DESC";
-        loadHistoryTable(sortOrder);
-        JOptionPane.showMessageDialog(this, "활동 내역이 새로고침되었습니다.");
+
     }//GEN-LAST:event_btnHisRefreshActionPerformed
 
    //활동 내역 탭 활동 삭제 버튼
     private void btnHisDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHisDeleteActionPerformed
-        // 권한 체크: admin, president만 가능
-        String role = UserSession.getRole();
-        if (!("admin".equals(role) || "president".equals(role))) {
-            JOptionPane.showMessageDialog(this, "활동 삭제 권한이 없습니다.");
-            return;
-        }
-
-        // 선택된 행 확인
-        int selectedRow = HisTable.getSelectedRow();
-        if (selectedRow == -1 || selectedRow >= activityIds.size()) {
-            JOptionPane.showMessageDialog(this, "삭제할 활동을 선택해주세요.");
-            return;
-        }
-
-        // activityIds에서 실제 ID 가져오기
-        int activityId = activityIds.get(selectedRow);
-
-        // 삭제 확인
-        int confirm = JOptionPane.showConfirmDialog(
-                this,
-                "정말로 이 활동 내역을 삭제하시겠습니까?",
-                "활동 삭제 확인",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.WARNING_MESSAGE
-        );
-
-        if (confirm != JOptionPane.YES_OPTION) {
-            return;
-        }
-
-        // DB에서 삭제
-        deleteActivity(activityId);
-
-        // 테이블 새로고침
-        String sortOrder = jCheckBox2.isSelected() ? "ASC" : "DESC";
-        loadHistoryTable(sortOrder);
+        
     }//GEN-LAST:event_btnHisDeleteActionPerformed
-
-    /**
-     * 활동 내역 삭제
-     */
-    private void deleteActivity(int activityId) {
-        String sql = "DELETE FROM activities WHERE id=?";
-
-        try (Connection conn = new DBConnection().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setInt(1, activityId);
-
-            int affected = pstmt.executeUpdate();
-            if (affected > 0) {
-                JOptionPane.showMessageDialog(this, "활동 내역이 삭제되었습니다.");
-            } else {
-                JOptionPane.showMessageDialog(this, "활동 내역 삭제에 실패했습니다.");
-            }
-
-        } catch (SQLException e) {
-            System.err.println("활동 내역 삭제 중 오류 발생: " + e.getMessage());
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "활동 내역 삭제 중 오류가 발생했습니다: " + e.getMessage());
-        }
-    }
 
     //회비 관리 탭 새로고침 버튼
     private void btnDuesUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuesUpdateActionPerformed
-        loadDuesHistory();
-        updateDuesLabels();
-        JOptionPane.showMessageDialog(this, "회비 내역이 새로고침되었습니다.");
+
     }//GEN-LAST:event_btnDuesUpdateActionPerformed
-    //회비 관리 탭 내역 추가 버튼 (사용 내역 등록)
+    //회비 관리 탭 내역 추가 버튼
     private void btnDuesInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuesInsertActionPerformed
-        // 권한 체크
-        String role = UserSession.getRole();
-        if (!("admin".equals(role) || "president".equals(role))) {
-            JOptionPane.showMessageDialog(this, "회비 등록 권한이 없습니다.");
-            return;
-        }
 
-        // 입력 정보 가져오기
-        String year = txtDuesYear.getText().trim();
-        String month = txtDuesMonth.getText().trim();
-        String day = txtDuesDay.getText().trim();
-        String date = year + "-" + month + "-" + day;
-        String location = txtDuesLocation.getText().trim();
-        String representative = (String) cbxDuesRepresentive.getSelectedItem();
-        String description = txtDuesDescription.getText().trim();
-        String amountStr = txtDuesAmount.getText().trim();
-
-        // 입력 검증
-        if (year.isEmpty() || month.isEmpty() || day.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "날짜를 입력해주세요.");
-            return;
-        }
-        if (location.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "장소를 입력해주세요.");
-            return;
-        }
-        if (representative == null || representative.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "대표자를 선택해주세요.");
-            return;
-        }
-        if (description.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "사용 내역을 입력해주세요.");
-            return;
-        }
-        if (amountStr.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "금액을 입력해주세요.");
-            return;
-        }
-
-        // 금액 파싱
-        int amount;
-        try {
-            amount = Integer.parseInt(amountStr);
-            if (amount <= 0) {
-                JOptionPane.showMessageDialog(this, "금액은 0보다 커야 합니다.");
-                return;
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "올바른 금액을 입력해주세요.");
-            return;
-        }
-
-        // 회비 사용 내역 등록 (날짜 수정 가능)
-        registerDues(date, location, representative, description, amount);
     }//GEN-LAST:event_btnDuesInsertActionPerformed
     //회비 관리 탭 내역 삭제 버튼
     private void btnDuesDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuesDeleteActionPerformed
-        // 권한 체크
-        String role = UserSession.getRole();
-        if (!("admin".equals(role) || "president".equals(role))) {
-            JOptionPane.showMessageDialog(this, "회비 삭제 권한이 없습니다.");
-            return;
-        }
 
-        // 선택된 행 확인
-        int selectedRow = DuesTable.getSelectedRow();
-        if (selectedRow == -1 || selectedRow >= duesIds.size()) {
-            JOptionPane.showMessageDialog(this, "삭제할 회비 내역을 선택해주세요.");
-            return;
-        }
-
-        // duesIds에서 실제 ID 가져오기
-        int duesId = duesIds.get(selectedRow);
-
-        // 삭제 확인
-        int confirm = JOptionPane.showConfirmDialog(
-                this,
-                "정말로 이 회비 내역을 삭제하시겠습니까?",
-                "회비 삭제 확인",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.WARNING_MESSAGE
-        );
-
-        if (confirm != JOptionPane.YES_OPTION) {
-            return;
-        }
-
-        // DB에서 삭제
-        deleteDues(duesId);
-
-        // 테이블 및 라벨 새로고침
-        loadDuesHistory();
-        updateDuesLabels();
     }//GEN-LAST:event_btnDuesDeleteActionPerformed
     
-    //스케줄 관리 탭 인원 등록/수정 버튼
+    //스케줄 관리 탭 인원 등록 버튼
     private void btnPartInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPartInsertActionPerformed
-
+         
         String year = txtScheYear.getText().trim();
         String month = txtScheMonth.getText().trim();
         String day = txtScheDay.getText().trim();
 
         String date = year + "-" + month + "-" + day;
         String location = snpScheLocation.getText();
+        int memberCount = (int) snpScheMemberCount.getValue();
         String description = snpScheDescription.getText();
         boolean completed = chkScheCompleted.isSelected();
 
@@ -2085,27 +1026,22 @@ public class MainFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "활동 내용를 모두 입력해주세요.");
             return;
         }
-
-        int scheduleId;
-
-        if (isEditMode) {
-            // 수정 모드: 기존 스케줄 ID 사용
-            scheduleId = editingScheduleId;
-        } else {
-            // 등록 모드: DB에 스케줄 먼저 저장하고 id 받기 (인원수는 0으로 시작)
-            scheduleId = insertScheduleAndGetId(date, location, 0, description, completed);
-
-            if (scheduleId == -1) {
-                System.out.println("스케줄 등록 실패");
-                return;
-            }
+        
+        // 2. DB에 스케줄 먼저 저장하고 id 받기
+        int scheduleId = insertScheduleAndGetId(date, location, memberCount, description, completed);
+        
+        if (scheduleId == -1) {
+            System.out.println("스케줄 등록 실패");
+            return;
         }
 
-        // 참가자 입력 프레임 열기
+
+        
+        // 3. 참가자 입력 프레임 열기
         ParticipantsFrame frame = new ParticipantsFrame(scheduleId);
         frame.setVisible(true);
 
-        // 스케줄 테이블 새로고침
+        // 4. 스케줄 테이블 새로고침
         loadScheduleTable();
     }//GEN-LAST:event_btnPartInsertActionPerformed
 
@@ -2126,46 +1062,8 @@ public class MainFrame extends javax.swing.JFrame {
             frame.setVisible(true);
         }
     }//GEN-LAST:event_ScheTableMouseClicked
-
-    //회비 입금 버튼
-    private void btnDuesDepositActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuesDepositActionPerformed
-        // 권한 체크: admin, president만 가능
-        String role = UserSession.getRole();
-        if (!("admin".equals(role) || "president".equals(role))) {
-            JOptionPane.showMessageDialog(this, "회비 입금 권한이 없습니다.");
-            return;
-        }
-
-        // 이번달 회비 계산
-        int monthlyDues = calculateMonthlyDues();
-
-        // 입금 확인 다이얼로그
-        int confirm = JOptionPane.showConfirmDialog(this,
-            String.format("이번달 회비 %,d원을 입금하시겠습니까?", monthlyDues),
-            "회비 입금 확인",
-            JOptionPane.YES_NO_OPTION);
-
-        if (confirm == JOptionPane.YES_OPTION) {
-            addMonthlyDues(monthlyDues);
-        }
-    }//GEN-LAST:event_btnDuesDepositActionPerformed
-
-    private void btnScheUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnScheUpdateActionPerformed
-        // 선택된 행 가져오기
-        int selectedRow = ScheTable.getSelectedRow();
-        if (selectedRow == -1 || selectedRow >= scheduleIds.size()) {
-            JOptionPane.showMessageDialog(this, "수정할 일정을 선택해주세요.");
-            return;
-        }
-
-        // 선택된 스케줄 ID 가져오기
-        int scheduleId = scheduleIds.get(selectedRow);
-
-        // 수정 모드로 전환하고 데이터 로드
-        loadScheduleForEdit(scheduleId);
-    }//GEN-LAST:event_btnScheUpdateActionPerformed
     
-    //schedules 테이블에 INSERT 후 반환 (인원 등록용)
+    //schedules 테이블에 INSERT 후 반환
     private int insertScheduleAndGetId(String date, String location, int memberCount, String description, boolean completed) {
         int newId = -1;//초기화
 
@@ -2193,148 +1091,6 @@ public class MainFrame extends javax.swing.JFrame {
         }
 
         return newId;
-    }
-
-    /**
-     * 완료된 스케줄을 activities 테이블에 자동 추가
-     */
-    private void insertCompletedActivityFromSchedule(int scheduleId, String date, String location,
-                                                     int memberCount, String description) {
-        // schedules 테이블에서 participants 정보 가져오기
-        String selectSql = "SELECT participants FROM schedules WHERE id=?";
-        String participants = "";
-
-        try (Connection conn = new DBConnection().getConnection();
-             PreparedStatement selectStmt = conn.prepareStatement(selectSql)) {
-
-            selectStmt.setInt(1, scheduleId);
-            ResultSet rs = selectStmt.executeQuery();
-
-            if (rs.next()) {
-                participants = rs.getString("participants");
-            }
-
-        } catch (SQLException e) {
-            System.err.println("참가자 정보 조회 중 오류: " + e.getMessage());
-            e.printStackTrace();
-        }
-
-        // activities 테이블에 INSERT
-        String insertSql = "INSERT INTO activities (activity_date, location, member_count, description, participants) " +
-                          "VALUES (?, ?, ?, ?, ?)";
-
-        try (Connection conn = new DBConnection().getConnection();
-             PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
-
-            insertStmt.setString(1, date);
-            insertStmt.setString(2, location);
-            insertStmt.setInt(3, memberCount);
-            insertStmt.setString(4, description);
-            insertStmt.setString(5, participants);
-
-            int affected = insertStmt.executeUpdate();
-            if (affected > 0) {
-                System.out.println("완료된 스케줄이 활동 내역에 자동으로 추가되었습니다.");
-            }
-
-        } catch (SQLException e) {
-            System.err.println("활동 내역 자동 추가 중 오류: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * 스케줄 완료 처리 (트랜잭션)
-     * schedules → activities 이동
-     * @param scheduleId 완료 처리할 스케줄 ID
-     */
-    public void completeSchedule(int scheduleId) {
-        Connection conn = null;
-        try {
-            conn = new DBConnection().getConnection();
-            conn.setAutoCommit(false); // 트랜잭션 시작
-
-            // 1. schedules에서 데이터 조회
-            String selectSql = "SELECT schedule_date, location, member_count, description, participants " +
-                              "FROM schedules WHERE id=?";
-
-            String activityDate = null;
-            String location = null;
-            int memberCount = 0;
-            String description = null;
-            String participants = null;
-
-            try (PreparedStatement selectStmt = conn.prepareStatement(selectSql)) {
-                selectStmt.setInt(1, scheduleId);
-                ResultSet rs = selectStmt.executeQuery();
-
-                if (rs.next()) {
-                    activityDate = rs.getString("schedule_date");
-                    location = rs.getString("location");
-                    memberCount = rs.getInt("member_count");
-                    description = rs.getString("description");
-                    participants = rs.getString("participants");
-                } else {
-                    throw new SQLException("스케줄을 찾을 수 없습니다.");
-                }
-            }
-
-            // 2. activities 테이블에 INSERT
-            String insertSql = "INSERT INTO activities (activity_date, location, member_count, description, participants) " +
-                              "VALUES (?, ?, ?, ?, ?)";
-
-            try (PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
-                insertStmt.setString(1, activityDate);
-                insertStmt.setString(2, location);
-                insertStmt.setInt(3, memberCount);
-                insertStmt.setString(4, description);
-                insertStmt.setString(5, participants);
-
-                insertStmt.executeUpdate();
-            }
-
-            // 3. schedules에서 DELETE (활동 내역으로 완전히 이동)
-            String deleteSql = "DELETE FROM schedules WHERE id=?";
-
-            try (PreparedStatement deleteStmt = conn.prepareStatement(deleteSql)) {
-                deleteStmt.setInt(1, scheduleId);
-                deleteStmt.executeUpdate();
-            }
-
-            // 트랜잭션 커밋
-            conn.commit();
-            System.out.println("스케줄 완료 처리 성공 (트랜잭션 완료)");
-            JOptionPane.showMessageDialog(this, "스케줄이 활동 내역으로 이동되었습니다!");
-
-            // 테이블 새로고침
-            loadScheduleTable();
-            loadHistoryTable();
-
-        } catch (SQLException e) {
-            // 트랜잭션 롤백
-            try {
-                if (conn != null) {
-                    conn.rollback();
-                    System.err.println("트랜잭션 롤백됨");
-                }
-            } catch (SQLException rollbackEx) {
-                rollbackEx.printStackTrace();
-            }
-
-            System.err.println("스케줄 완료 처리 중 오류: " + e.getMessage());
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "스케줄 완료 처리 중 오류가 발생했습니다: " + e.getMessage());
-
-        } finally {
-            try {
-                if (conn != null) {
-                    conn.setAutoCommit(true); // 자동 커밋 모드 복원
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
     }
     
     /**
@@ -2377,7 +1133,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel SchePanel;
     private javax.swing.JTable ScheTable;
     private javax.swing.JButton btnDuesDelete;
-    private javax.swing.JButton btnDuesDeposit;
     private javax.swing.JButton btnDuesInsert;
     private javax.swing.JButton btnDuesUpdate;
     private javax.swing.JButton btnHisDelete;
@@ -2392,15 +1147,12 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnScheDelete;
     private javax.swing.JButton btnScheInsert;
     private javax.swing.JButton btnScheRefresh;
-    private javax.swing.JButton btnScheUpdate;
     private javax.swing.ButtonGroup buttonGroupGender;
     private javax.swing.JComboBox<String> cbxDuesRepresentive;
     private javax.swing.JCheckBox chkAll;
     private javax.swing.JCheckBox chkFemale;
     private javax.swing.JCheckBox chkMale;
     private javax.swing.JCheckBox chkScheCompleted;
-    private javax.swing.JCheckBox chkScheDateOrder;
-    private javax.swing.JCheckBox chkScheLatest;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JLabel jLabel1;
@@ -2412,6 +1164,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -2430,6 +1183,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lblUserInfo;
     private javax.swing.JTextArea snpScheDescription;
     private javax.swing.JTextField snpScheLocation;
+    private javax.swing.JSpinner snpScheMemberCount;
     private javax.swing.JTextField txtDuesAmount;
     private javax.swing.JTextField txtDuesDay;
     private javax.swing.JTextField txtDuesDescription;

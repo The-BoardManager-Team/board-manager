@@ -244,12 +244,17 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
                                   <Group type="102" attributes="0">
                                       <Component id="txtScheYear" min="-2" pref="47" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Group type="102" attributes="0">
                                       <Component id="txtScheMonth" min="-2" pref="30" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
@@ -260,10 +265,8 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="chkScheDateOrder" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="chkScheLatest" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="snpScheMemberCount" min="-2" pref="60" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
                                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                                   </Group>
@@ -289,7 +292,6 @@
                           <Component id="btnScheInsert" min="-2" max="-2" attributes="0"/>
                           <Component id="btnScheDelete" min="-2" max="-2" attributes="0"/>
                           <Component id="btnScheRefresh" alignment="0" min="-2" pref="82" max="-2" attributes="0"/>
-                          <Component id="btnScheUpdate" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -310,8 +312,8 @@
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                                       <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="chkScheDateOrder" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="chkScheLatest" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="snpScheMemberCount" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="jScrollPane3" min="-2" max="-2" attributes="0"/>
                                   <Component id="chkScheCompleted" min="-2" max="-2" attributes="0"/>
@@ -322,8 +324,6 @@
                                       <Component id="btnScheRefresh" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="btnScheInsert" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="btnScheUpdate" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="btnScheDelete" min="-2" max="-2" attributes="0"/>
                                   </Group>
@@ -380,6 +380,13 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="snpScheLocation">
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel3">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#xc778;&#xc6d0; &#xc218;  : "/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JSpinner" name="snpScheMemberCount">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>
@@ -463,24 +470,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPartInsertActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JCheckBox" name="chkScheLatest">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="&#xcd5c;&#xc2e0;&#xc21c;"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="chkScheDateOrder">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="&#xb0a0;&#xc9dc;&#xc21c;"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="btnScheUpdate">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="&#xc77c;&#xc815; &#xc218;&#xc815;"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnScheUpdateActionPerformed"/>
-              </Events>
-            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="HisPanel">
@@ -501,7 +490,7 @@
                               <Component id="jCheckBox2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jCheckBox3" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="650" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="644" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
@@ -659,11 +648,7 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="lblTotalDues" max="32767" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="btnDuesDeposit" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="lblTotalDues" max="32767" attributes="0"/>
                                   <Component id="lblRemainDues" min="-2" pref="111" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -677,7 +662,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="11" max="32767" attributes="0"/>
+                      <EmptySpace pref="7" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -703,7 +688,6 @@
                                       <Component id="txtDuesAmount" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="lblTotalDues" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="btnDuesDeposit" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -876,7 +860,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel16">
               <Properties>
-                <Property name="text" type="java.lang.String" value="&#xc774;&#xbc88; &#xb2ec; &#xd68c;&#xbe44; :"/>
+                <Property name="text" type="java.lang.String" value="&#xcd1d; &#xd68c;&#xbe44; :"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblTotalDues">
@@ -902,14 +886,6 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="text"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="btnDuesDeposit">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="&#xc785;&#xae08;"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDuesDepositActionPerformed"/>
-              </Events>
             </Component>
           </SubComponents>
         </Container>
