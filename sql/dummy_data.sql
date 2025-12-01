@@ -22,14 +22,14 @@ INSERT INTO users (username, password, student_id, name, age, gender, birth_date
 
 -- 3. 스케줄 예시
 INSERT INTO schedules (schedule_date, location, member_count, description, participants, completed) VALUES
-('2025-12-05', '학생회관 201호', 5, '보드게임 정기 모임', 'member1,member2,member3,member4,member5', FALSE),
-('2025-12-10', '카페 투썸', 3, '임원진 회의', 'president,member1,member2', FALSE),
-('2025-12-15', '학생회관', 7, '신입생 환영회', 'president,member1,member2,member3,member4,member5', FALSE);
+('2025-12-05', '학생회관 201호', 5, '보드게임 정기 모임', '김철수,이영희,박민수,정수진,최우식', FALSE),
+('2025-12-10', '카페 투썸', 3, '임원진 회의', '홍길동,김철수,이영희', FALSE),
+('2025-12-15', '학생회관', 6, '신입생 환영회', '홍길동,김철수,이영희,박민수,정수진,최우식', FALSE);
 
 -- 4. 완료된 활동 내역 예시
 INSERT INTO activities (activity_date, location, member_count, description, participants) VALUES
-('2025-11-15', '학생회관', 6, '보드게임 정기 모임', 'president,member1,member2,member3,member4'),
-('2025-11-20', '스터디 카페', 4, 'MT 준비 회의', 'president,member1,member2,member3');
+('2025-11-15', '학생회관', 5, '보드게임 정기 모임', '홍길동,김철수,이영희,박민수,정수진'),
+('2025-11-20', '스터디 카페', 4, 'MT 준비 회의', '홍길동,김철수,이영희,박민수');
 
 -- 5. 회비 사용 내역 예시
 INSERT INTO dues (usage_date, location, representative, description, amount) VALUES
