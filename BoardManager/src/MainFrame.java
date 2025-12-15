@@ -58,6 +58,15 @@ public class MainFrame extends javax.swing.JFrame {
 
         // 스케줄 정렬 체크박스 리스너 추가
         setupScheduleSortFilters();
+
+        // 회비 정렬 체크박스 리스너 추가
+        setupDuesSortFilters();
+
+        // 테이블 단일 행 선택 모드 설정
+        MemTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        ScheTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        HisTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        DuesTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
     }
 
     
@@ -105,13 +114,6 @@ public class MainFrame extends javax.swing.JFrame {
         chkScheLatest = new javax.swing.JCheckBox();
         chkScheDateOrder = new javax.swing.JCheckBox();
         btnScheUpdate = new javax.swing.JButton();
-        HisPanel = new javax.swing.JPanel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        HisTable = new javax.swing.JTable();
-        btnHisDelete = new javax.swing.JButton();
-        btnHisRefresh = new javax.swing.JButton();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
         DuesPanel = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         DuesTable = new javax.swing.JTable();
@@ -132,13 +134,20 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         txtDuesDay = new javax.swing.JTextField();
         txtDuesYear = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         lblTotalDues = new javax.swing.JLabel();
         lblRemainDues = new javax.swing.JLabel();
-        lblDuesMemberCount = new javax.swing.JLabel();
         btnDuesDeposit = new javax.swing.JButton();
+        chkDuesDateOrder = new javax.swing.JCheckBox();
+        chkDuesLatest = new javax.swing.JCheckBox();
+        HisPanel = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        HisTable = new javax.swing.JTable();
+        btnHisDelete = new javax.swing.JButton();
+        btnHisRefresh = new javax.swing.JButton();
+        chkHisDateOrder = new javax.swing.JCheckBox();
+        chkHisLatest = new javax.swing.JCheckBox();
         lblUserInfo = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
 
@@ -183,7 +192,15 @@ public class MainFrame extends javax.swing.JFrame {
             new String [] {
                 "ID", "아이디", "이름", "학번", "성별", "직책", "생년월일"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(MemTable);
 
         btnMemUpdate.setText("회원 수정");
@@ -243,19 +260,18 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(chkMale)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(chkFemale)
-                        .addGap(0, 615, Short.MAX_VALUE))
+                        .addGap(0, 633, Short.MAX_VALUE))
                     .addGroup(MemPanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 762, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 774, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(MemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(MemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnMemUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnMemInsert, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnMemDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnRoleChange))
-                    .addComponent(btnMemRefresh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGroup(MemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnMemUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnMemInsert, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnMemDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRoleChange, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnMemRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(10, 10, 10))
         );
         MemPanelLayout.setVerticalGroup(
             MemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -270,7 +286,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
                     .addGroup(MemPanelLayout.createSequentialGroup()
                         .addComponent(btnMemRefresh)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(btnMemInsert)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnMemUpdate)
@@ -343,7 +359,15 @@ public class MainFrame extends javax.swing.JFrame {
             new String [] {
                 "날짜", "장소", "인원 수", "활동 내용", "참가 인원", "완료"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         ScheTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ScheTableMouseClicked(evt);
@@ -395,9 +419,9 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtScheDay, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(16, 16, 16)
-                                .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel5)
+                                .addGap(16, 16, 16)
                                 .addComponent(jLabel2))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SchePanelLayout.createSequentialGroup()
                                 .addComponent(chkScheDateOrder)
@@ -409,20 +433,18 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(snpScheLocation)
                             .addComponent(jScrollPane3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnPartInsert)
-                            .addGroup(SchePanelLayout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addComponent(chkScheCompleted))))
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 762, Short.MAX_VALUE))
+                        .addGap(23, 23, 23)
+                        .addComponent(chkScheCompleted)
+                        .addGap(16, 16, 16))
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 774, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnScheInsert)
-                    .addComponent(btnScheDelete)
-                    .addComponent(btnScheRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnScheUpdate))
-                .addContainerGap())
+                .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnScheInsert, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnScheDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnScheUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnPartInsert, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnScheRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(10, 10, 10))
         );
         SchePanelLayout.setVerticalGroup(
             SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -432,8 +454,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(SchePanelLayout.createSequentialGroup()
                         .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(snpScheLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnPartInsert))
+                            .addComponent(snpScheLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(7, 7, 7)
                         .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -446,8 +467,10 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGroup(SchePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(SchePanelLayout.createSequentialGroup()
                                 .addComponent(btnScheRefresh)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(18, 18, 18)
                                 .addComponent(btnScheInsert)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnPartInsert)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnScheUpdate)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -465,102 +488,6 @@ public class MainFrame extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("스케줄 관리", SchePanel);
-
-        HisTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "날짜", "장소", "참가 인원 수", "활동 내용", "참가자"
-            }
-        ));
-        jScrollPane5.setViewportView(HisTable);
-
-        btnHisDelete.setText("활동 삭제");
-        btnHisDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHisDeleteActionPerformed(evt);
-            }
-        });
-
-        btnHisRefresh.setText("새로고침");
-        btnHisRefresh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHisRefreshActionPerformed(evt);
-            }
-        });
-
-        jCheckBox2.setText("날짜순");
-
-        jCheckBox3.setText("최신순");
-
-        javax.swing.GroupLayout HisPanelLayout = new javax.swing.GroupLayout(HisPanel);
-        HisPanel.setLayout(HisPanelLayout);
-        HisPanelLayout.setHorizontalGroup(
-            HisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(HisPanelLayout.createSequentialGroup()
-                .addGroup(HisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(HisPanelLayout.createSequentialGroup()
-                        .addComponent(jCheckBox2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBox3)
-                        .addGap(0, 650, Short.MAX_VALUE))
-                    .addGroup(HisPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 762, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(HisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnHisDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnHisRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        HisPanelLayout.setVerticalGroup(
-            HisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(HisPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(HisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox2)
-                    .addComponent(jCheckBox3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(HisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
-                    .addGroup(HisPanelLayout.createSequentialGroup()
-                        .addComponent(btnHisRefresh)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnHisDelete)
-                        .addGap(0, 0, Short.MAX_VALUE))))
-        );
-
-        jTabbedPane1.addTab("활동 내역", HisPanel);
 
         DuesTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -598,7 +525,15 @@ public class MainFrame extends javax.swing.JFrame {
             new String [] {
                 "날짜", "장소", "사용 대표자", "사용 목적", "금액", "잔액"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane4.setViewportView(DuesTable);
 
         btnDuesInsert.setText("내역 추가");
@@ -640,8 +575,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         txtDuesYear.setText("2025");
 
-        jLabel14.setText("회원 수 :");
-
         jLabel15.setText("잔여 회비 :");
 
         jLabel16.setText("이번 달 회비 :");
@@ -650,10 +583,7 @@ public class MainFrame extends javax.swing.JFrame {
         lblTotalDues.setText("text");
 
         lblRemainDues.setFont(new java.awt.Font("맑은 고딕", 1, 14)); // NOI18N
-        lblRemainDues.setForeground(new java.awt.Color(102, 255, 102));
         lblRemainDues.setText("text");
-
-        lblDuesMemberCount.setText("text");
 
         btnDuesDeposit.setText("입금");
         btnDuesDeposit.addActionListener(new java.awt.event.ActionListener() {
@@ -661,6 +591,10 @@ public class MainFrame extends javax.swing.JFrame {
                 btnDuesDepositActionPerformed(evt);
             }
         });
+
+        chkDuesDateOrder.setText("날짜순");
+
+        chkDuesLatest.setText("최신순");
 
         javax.swing.GroupLayout DuesPanelLayout = new javax.swing.GroupLayout(DuesPanel);
         DuesPanel.setLayout(DuesPanelLayout);
@@ -684,9 +618,9 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel13))
                             .addGroup(DuesPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel9)
+                                .addComponent(chkDuesDateOrder)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cbxDuesRepresentive, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(chkDuesLatest)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel10)
@@ -701,12 +635,12 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(DuesPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtDuesAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(txtDuesAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(DuesPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel14)
+                                .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblDuesMemberCount)))
+                                .addComponent(cbxDuesRepresentive, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel15)
@@ -725,7 +659,7 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(btnDuesUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnDuesInsert, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnDuesDelete))))
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         DuesPanelLayout.setVerticalGroup(
             DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -733,41 +667,40 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(DuesPanelLayout.createSequentialGroup()
-                        .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(txtDuesLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtDuesDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10)))
-                    .addGroup(DuesPanelLayout.createSequentialGroup()
                         .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txtDuesAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel16)
                                 .addComponent(lblTotalDues)
                                 .addComponent(btnDuesDeposit))
-                            .addComponent(jLabel11))
+                            .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel11)
+                                .addComponent(txtDuesAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel15)
+                            .addComponent(lblRemainDues)))
+                    .addGroup(DuesPanelLayout.createSequentialGroup()
+                        .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel8)
+                                .addComponent(txtDuesLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel7)
+                                .addComponent(txtDuesYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtDuesMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel12)
+                                .addComponent(txtDuesDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel13)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel14)
-                                .addComponent(lblDuesMemberCount))
+                                .addComponent(chkDuesDateOrder)
+                                .addComponent(chkDuesLatest))
                             .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel15)
-                                .addComponent(lblRemainDues))))
-                    .addGroup(DuesPanelLayout.createSequentialGroup()
-                        .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(txtDuesYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDuesMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12)
-                            .addComponent(txtDuesDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel13))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(cbxDuesRepresentive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(txtDuesDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel9)
+                                .addComponent(cbxDuesRepresentive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel10))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(DuesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(DuesPanelLayout.createSequentialGroup()
@@ -781,6 +714,110 @@ public class MainFrame extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("회비 관리", DuesPanel);
+
+        HisTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "날짜", "장소", "참가 인원 수", "활동 내용", "참가자"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane5.setViewportView(HisTable);
+
+        btnHisDelete.setText("활동 삭제");
+        btnHisDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHisDeleteActionPerformed(evt);
+            }
+        });
+
+        btnHisRefresh.setText("새로고침");
+        btnHisRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHisRefreshActionPerformed(evt);
+            }
+        });
+
+        chkHisDateOrder.setText("날짜순");
+
+        chkHisLatest.setText("최신순");
+
+        javax.swing.GroupLayout HisPanelLayout = new javax.swing.GroupLayout(HisPanel);
+        HisPanel.setLayout(HisPanelLayout);
+        HisPanelLayout.setHorizontalGroup(
+            HisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(HisPanelLayout.createSequentialGroup()
+                .addGroup(HisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(HisPanelLayout.createSequentialGroup()
+                        .addComponent(chkHisDateOrder)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(chkHisLatest)
+                        .addGap(0, 666, Short.MAX_VALUE))
+                    .addGroup(HisPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 778, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(HisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnHisDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnHisRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        HisPanelLayout.setVerticalGroup(
+            HisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(HisPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(HisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(chkHisDateOrder)
+                    .addComponent(chkHisLatest))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(HisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
+                    .addGroup(HisPanelLayout.createSequentialGroup()
+                        .addComponent(btnHisRefresh)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnHisDelete)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+
+        jTabbedPane1.addTab("활동 내역", HisPanel);
 
         lblUserInfo.setText("admin님 환영합니다!");
 
@@ -835,9 +872,7 @@ public class MainFrame extends javax.swing.JFrame {
     }
     
     
-    /**
-     * 회원 테이블 데이터를 DB에서 로드하여 화면에 표시
-     */
+    // 회원 테이블 로드
     private void loadMemberTable() {
         DefaultTableModel model = (DefaultTableModel) MemTable.getModel();
         model.setRowCount(0); // 초기화
@@ -852,13 +887,16 @@ public class MainFrame extends javax.swing.JFrame {
              ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
+                String role = rs.getString("role");
+                String roleKorean = convertRoleToKorean(role);
+
                 model.addRow(new Object[]{
                     rs.getInt("id"),
                     rs.getString("username"),
                     rs.getString("name"),
                     rs.getString("student_id"),
                     rs.getString("gender"),
-                    rs.getString("role"),
+                    roleKorean,
                     rs.getString("birth_date")
                 });
             }
@@ -868,9 +906,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * 성별 필터에 따라 회원 테이블 로드
-     */
+    // 성별 필터에 따라 회원 테이블 로드
     private void loadMemberTableByGender(String gender) {
         DefaultTableModel model = (DefaultTableModel) MemTable.getModel();
         model.setRowCount(0); // 초기화
@@ -892,13 +928,16 @@ public class MainFrame extends javax.swing.JFrame {
 
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
+                    String role = rs.getString("role");
+                    String roleKorean = convertRoleToKorean(role);
+
                     model.addRow(new Object[]{
                         rs.getInt("id"),
                         rs.getString("username"),
                         rs.getString("name"),
                         rs.getString("student_id"),
                         rs.getString("gender"),
-                        rs.getString("role"),
+                        roleKorean,
                         rs.getString("birth_date")
                     });
                 }
@@ -909,9 +948,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * 현재 선택된 성별 필터에 따라 테이블 새로고침
-     */
+    // 현재 선택된 성별 필터에 따라 테이블 새로고침
     private void refreshMemberTable() {
         String selectedGender = "전체";
         if (chkMale.isSelected()) {
@@ -922,48 +959,37 @@ public class MainFrame extends javax.swing.JFrame {
         loadMemberTableByGender(selectedGender);
     }
 
-    /**
-     * 성별 필터 체크박스에 이벤트 리스너 설정
-     */
+    // 성별 필터 체크박스 리스너 설정
     private void setupGenderFilters() {
         chkAll.addActionListener(e -> refreshMemberTable());
         chkMale.addActionListener(e -> refreshMemberTable());
         chkFemale.addActionListener(e -> refreshMemberTable());
     }
 
-    /**
-     * 활동 내역 정렬 체크박스 리스너 설정
-     */
+    // 활동 내역 정렬 체크박스 리스너 설정
     private void setupActivitySortFilters() {
-        // jCheckBox2: 날짜순 (ASC)
-        // jCheckBox3: 최신순 (DESC)
-        jCheckBox2.addActionListener(e -> {
-            if (jCheckBox2.isSelected()) {
-                jCheckBox3.setSelected(false);
+        // chkHisDateOrder: 날짜순 (ASC)
+        // chkHisLatest: 최신순 (DESC)
+        chkHisDateOrder.addActionListener(e -> {
+            if (chkHisDateOrder.isSelected()) {
+                chkHisLatest.setSelected(false);
                 loadHistoryTable("ASC");
             }
         });
 
-        jCheckBox3.addActionListener(e -> {
-            if (jCheckBox3.isSelected()) {
-                jCheckBox2.setSelected(false);
+        chkHisLatest.addActionListener(e -> {
+            if (chkHisLatest.isSelected()) {
+                chkHisDateOrder.setSelected(false);
                 loadHistoryTable("DESC");
             }
         });
 
         // 기본값: 최신순 선택
-        jCheckBox3.setSelected(true);
+        chkHisLatest.setSelected(true);
     }
 
-    /**
-     * 스케줄 정렬 체크박스 리스너 설정
-     * NetBeans에서 chkScheLatest(최신순), chkScheDateOrder(날짜순) 추가 필요
-     */
+    // 스케줄 정렬 체크박스 리스너 설정
     private void setupScheduleSortFilters() {
-        // TODO: NetBeans Form Editor에서 체크박스 추가 후 주석 해제
-        
-        // chkScheLatest: 최신순 (DESC)
-        // chkScheDateOrder: 날짜순 (ASC)
         chkScheLatest.addActionListener(e -> {
             if (chkScheLatest.isSelected()) {
                 chkScheDateOrder.setSelected(false);
@@ -980,12 +1006,63 @@ public class MainFrame extends javax.swing.JFrame {
 
         // 기본값: 최신순 선택
         chkScheLatest.setSelected(true);
-        
+
     }
 
-    /**
-     * 회원 삭제 (PreparedStatement로 SQL Injection 방지)
-     */
+    private void setupDuesSortFilters() {
+        chkDuesLatest.addActionListener(e -> {
+            if (chkDuesLatest.isSelected()) {
+                chkDuesDateOrder.setSelected(false);
+                loadDuesHistory("DESC");
+            }
+        });
+
+        chkDuesDateOrder.addActionListener(e -> {
+            if (chkDuesDateOrder.isSelected()) {
+                chkDuesLatest.setSelected(false);
+                loadDuesHistory("ASC");
+            }
+        });
+
+        // 기본값: 최신순 선택
+        chkDuesLatest.setSelected(true);
+    }
+
+    // role 영어를 한글로 변환
+    private String convertRoleToKorean(String role) {
+        switch (role) {
+            case "admin":
+                return "관리자";
+            case "president":
+                return "부장";
+            case "member":
+                return "회원";
+            default:
+                return role;
+        }
+    }
+
+    // role 한글을 영어로 변환
+    private String convertRoleToEnglish(String koreanRole) {
+        switch (koreanRole) {
+            case "관리자":
+                return "admin";
+            case "부장":
+                return "president";
+            case "평회원":
+            case "회원":
+                return "member";
+            default:
+                return koreanRole;
+        }
+    }
+
+    // 현재 사용자가 관리자 권한(admin 또는 president)을 가지고 있는지 확인
+    private boolean hasAdminPrivilege() {
+        String role = UserSession.getRole();
+        return "admin".equals(role) || "president".equals(role);
+    }
+
     private void deleteMember(int userId) {
         String sql = "DELETE FROM users WHERE id=?";
 
@@ -1008,13 +1085,8 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * 회원 직책 변경 (권한 검증 포함)
-     */
     private void changeRole(int userId, String newRole) {
-        // 권한 검증: 현재 로그인한 사용자가 admin 또는 president인지 확인
-        String currentUserRole = UserSession.getRole();
-        if (!("admin".equals(currentUserRole) || "president".equals(currentUserRole))) {
+        if (!hasAdminPrivilege()) {
             JOptionPane.showMessageDialog(this, "직책 변경 권한이 없습니다.");
             return;
         }
@@ -1045,10 +1117,7 @@ public class MainFrame extends javax.swing.JFrame {
         loadScheduleTable("DESC"); // 기본값: 최신순
     }
 
-    /**
-     * 스케줄 테이블 로드 (정렬 옵션 포함)
-     * @param sortOrder "ASC" (날짜순) 또는 "DESC" (최신순)
-     */
+    // 스케줄 테이블 로드 (정렬: ASC=날짜순, DESC=최신순)
     public void loadScheduleTable(String sortOrder){
         scheduleIds.clear();
 
@@ -1067,6 +1136,10 @@ public class MainFrame extends javax.swing.JFrame {
                 // 실제 id 저장
                 scheduleIds.add(rs.getInt("id"));
 
+                // 완료 여부를 한글로 변환
+                boolean completed = rs.getBoolean("completed");
+                String completedText = completed ? "완료" : "미완료";
+
                 // 테이블에 데이터 행 추가
                 model.addRow(new Object[]{
                     rs.getString("schedule_date"),
@@ -1074,7 +1147,7 @@ public class MainFrame extends javax.swing.JFrame {
                     rs.getString("member_count"),
                     rs.getString("description"),
                     rs.getString("participants"),
-                    rs.getString("completed")
+                    completedText
                 });
             }
 
@@ -1082,18 +1155,15 @@ public class MainFrame extends javax.swing.JFrame {
             System.err.println("스케줄 테이블 로드 중 오류 발생: " + e.getMessage());
             e.printStackTrace();
         }
+
+        // 테이블 새로고침 시 버튼 텍스트 초기화
+        btnPartInsert.setText("인원 등록");
     }
-    /**
-     * 활동 내역 테이블 로드 (정렬 옵션 포함)
-     */
+    // 활동 내역 테이블 로드
     private void loadHistoryTable() {
-        loadHistoryTable("DESC"); // 기본값: 최신순
+        loadHistoryTable("DESC");
     }
 
-    /**
-     * 활동 내역 테이블 로드 (정렬 옵션 지정)
-     * @param sortOrder "ASC" (날짜순) 또는 "DESC" (최신순)
-     */
     private void loadHistoryTable(String sortOrder) {
         activityIds.clear();
 
@@ -1127,17 +1197,17 @@ public class MainFrame extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    /**
-     * 회비 사용 내역 테이블 로드 (잔액 계산 포함)
-     * 최신순으로 정렬
-     */
     private void loadDuesHistory() {
+        loadDuesHistory("DESC");
+    }
+
+    private void loadDuesHistory(String sortOrder) {
         duesIds.clear();
         DefaultTableModel model = (DefaultTableModel) DuesTable.getModel();
         model.setRowCount(0);
 
         String sql = "SELECT id, usage_date, location, representative, description, amount " +
-                     "FROM dues ORDER BY usage_date DESC";
+                     "FROM dues ORDER BY usage_date " + sortOrder;
 
         // 현재 총 회비와 사용 금액 계산
         int currentDues = getCurrentDues();
@@ -1148,12 +1218,11 @@ public class MainFrame extends javax.swing.JFrame {
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
 
-            // 최신순이므로 잔액을 역순으로 계산
             ArrayList<Object[]> rows = new ArrayList<>();
+            ArrayList<Integer> ids = new ArrayList<>();
 
             while (rs.next()) {
-                duesIds.add(rs.getInt("id"));
-
+                ids.add(rs.getInt("id"));
                 rows.add(new Object[]{
                     rs.getString("usage_date"),
                     rs.getString("location"),
@@ -1164,13 +1233,27 @@ public class MainFrame extends javax.swing.JFrame {
                 });
             }
 
-            // 잔액 계산 (최신순이므로 현재 잔액부터 시작해서 역으로 계산)
-            int balance = currentBalance;
-            for (int i = 0; i < rows.size(); i++) {
-                Object[] row = rows.get(i);
-                row[5] = balance; // 잔액 설정
-                balance += (int) row[4]; // 이전 잔액 = 현재 잔액 + 사용 금액
-                model.addRow(row);
+            // 잔액 계산
+            if ("DESC".equals(sortOrder)) {
+                // 최신순: 현재 잔액부터 역으로 계산
+                int balance = currentBalance;
+                for (int i = 0; i < rows.size(); i++) {
+                    duesIds.add(ids.get(i));
+                    Object[] row = rows.get(i);
+                    row[5] = balance;
+                    balance += (int) row[4];
+                    model.addRow(row);
+                }
+            } else {
+                // 날짜순: 초기 잔액부터 순차적으로 계산
+                int balance = currentDues;
+                for (int i = 0; i < rows.size(); i++) {
+                    duesIds.add(ids.get(i));
+                    Object[] row = rows.get(i);
+                    balance -= (int) row[4];
+                    row[5] = balance;
+                    model.addRow(row);
+                }
             }
 
         } catch (SQLException e) {
@@ -1179,9 +1262,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * 회비 날짜 입력 필드에 오늘 날짜를 기본값으로 설정
-     */
+    // 회비 날짜 필드에 오늘 날짜 설정
     private void setDefaultDuesDate() {
         java.time.LocalDate today = java.time.LocalDate.now();
         txtDuesYear.setText(String.valueOf(today.getYear()));
@@ -1189,9 +1270,7 @@ public class MainFrame extends javax.swing.JFrame {
         txtDuesDay.setText(String.valueOf(today.getDayOfMonth()));
     }
 
-    /**
-     * 스케줄 날짜 입력 필드에 오늘 날짜를 기본값으로 설정
-     */
+    // 스케줄 날짜 필드에 오늘 날짜 설정
     private void setDefaultScheDate() {
         java.time.LocalDate today = java.time.LocalDate.now();
         txtScheYear.setText(String.valueOf(today.getYear()));
@@ -1199,10 +1278,7 @@ public class MainFrame extends javax.swing.JFrame {
         txtScheDay.setText(String.valueOf(today.getDayOfMonth()));
     }
 
-    /**
-     * dues_settings에서 현재 총 회비 조회
-     * @return 현재 총 회비
-     */
+    // dues_settings에서 현재 총 회비 조회
     private int getCurrentDues() {
         String sql = "SELECT current_dues FROM dues_settings WHERE id=1";
 
@@ -1222,12 +1298,9 @@ public class MainFrame extends javax.swing.JFrame {
         return 0;
     }
 
-    /**
-     * 이번달 회비 계산 (평회원 수 × 10,000원)
-     * @return 이번달 회비
-     */
+    // 이번달 회비 계산 (학생 수 × 10,000원)
     private int calculateMonthlyDues() {
-        String sql = "SELECT COUNT(*) as member_count FROM users WHERE role='member'";
+        String sql = "SELECT COUNT(*) as member_count FROM users WHERE role IN ('president', 'member')";
 
         try (Connection conn = new DBConnection().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -1246,10 +1319,7 @@ public class MainFrame extends javax.swing.JFrame {
         return 0;
     }
 
-    /**
-     * 사용 금액 합계 계산
-     * @return 총 사용 금액
-     */
+    // 사용 금액 합계 계산
     private int calculateUsedAmount() {
         String sql = "SELECT COALESCE(SUM(amount), 0) as total_used FROM dues";
 
@@ -1269,21 +1339,14 @@ public class MainFrame extends javax.swing.JFrame {
         return 0;
     }
 
-    /**
-     * 잔여 회비 계산
-     * @return 잔여 회비
-     */
+    // 잔여 회비 계산
     private int calculateBalance() {
         return getCurrentDues() - calculateUsedAmount();
     }
 
-    /**
-     * 이번달 회비 입금 처리 (dues_settings 업데이트)
-     */
+    // 이번달 회비 입금 처리 (dues_settings 업데이트)
     private void addMonthlyDues(int amount) {
-        // 권한 체크
-        String role = UserSession.getRole();
-        if (!("admin".equals(role) || "president".equals(role))) {
+        if (!hasAdminPrivilege()) {
             JOptionPane.showMessageDialog(this, "회비 입금 권한이 없습니다.");
             return;
         }
@@ -1311,39 +1374,16 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * 회비 라벨 업데이트 (회원 수, 이번달 회비, 잔여 회비)
-     */
+    // 회비 라벨 업데이트 (회원 수, 이번달 회비, 잔여 회비)
     private void updateDuesLabels() {
-        // 회원 수 계산
-        String sql = "SELECT COUNT(*) as member_count FROM users WHERE role='member'";
-        int memberCount = 0;
+        int monthlyDues = calculateMonthlyDues();
+        int balance = calculateBalance();
 
-        try (Connection conn = new DBConnection().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
-
-            if (rs.next()) {
-                memberCount = rs.getInt("member_count");
-            }
-
-        } catch (SQLException e) {
-            System.err.println("회원 수 조회 중 오류 발생: " + e.getMessage());
-            e.printStackTrace();
-        }
-
-        int monthlyDues = calculateMonthlyDues(); // 이번달 회비 (인원수 × 10,000)
-        int balance = calculateBalance(); // 잔여 회비
-
-        // 라벨 업데이트
-        lblDuesMemberCount.setText(memberCount + "명");
-        lblTotalDues.setText(String.format("%,d원", monthlyDues)); // 이번달 회비 표시
+        lblTotalDues.setText(String.format("%,d원", monthlyDues));
         lblRemainDues.setText(String.format("%,d원", balance));
     }
 
-    /**
-     * 대표자 선택용 콤보박스에 회원 목록 로드
-     */
+    // 대표자 선택용 콤보박스에 회원 목록 로드
     private void loadMembersForRepresentative() {
         cbxDuesRepresentive.removeAllItems();
 
@@ -1363,14 +1403,10 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * 회비 사용 내역 등록 (날짜 수정 가능)
-     */
+    // 회비 사용 내역 등록 (날짜 수정 가능)
     private void registerDues(String date, String location, String representative,
                               String description, int amount) {
-        // 권한 체크: admin, president만 가능
-        String role = UserSession.getRole();
-        if (!("admin".equals(role) || "president".equals(role))) {
+        if (!hasAdminPrivilege()) {
             JOptionPane.showMessageDialog(this, "회비 등록 권한이 없습니다.");
             return;
         }
@@ -1392,10 +1428,7 @@ public class MainFrame extends javax.swing.JFrame {
             if (affected > 0) {
                 JOptionPane.showMessageDialog(this, "회비 사용 내역이 등록되었습니다!");
 
-                // 입력 필드 초기화 (날짜는 오늘로 재설정)
                 clearDuesInputs();
-
-                // 테이블 및 라벨 새로고침
                 loadDuesHistory();
                 updateDuesLabels();
             } else {
@@ -1409,9 +1442,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * 회비 입력 필드 초기화 (날짜는 오늘로 재설정)
-     */
+    // 회비 입력 필드 초기화 (날짜는 오늘로 재설정)
     private void clearDuesInputs() {
         setDefaultDuesDate(); // 날짜를 오늘로 재설정
         txtDuesLocation.setText("");
@@ -1422,13 +1453,9 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * 회비 사용 내역 삭제
-     */
+    // 회비 사용 내역 삭제
     private void deleteDues(int duesId) {
-        // 권한 체크: admin, president만 가능
-        String role = UserSession.getRole();
-        if (!("admin".equals(role) || "president".equals(role))) {
+        if (!hasAdminPrivilege()) {
             JOptionPane.showMessageDialog(this, "회비 삭제 권한이 없습니다.");
             return;
         }
@@ -1468,9 +1495,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMemRefreshActionPerformed
     //인원 관리 탭 삽입 버튼
     private void btnMemInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMemInsertActionPerformed
-        // 권한 체크: admin, president만 가능
-        String role = UserSession.getRole();
-        if (!("admin".equals(role) || "president".equals(role))) {
+        if (!hasAdminPrivilege()) {
             JOptionPane.showMessageDialog(this, "회원 추가 권한이 없습니다.");
             return;
         }
@@ -1513,9 +1538,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMemUpdateActionPerformed
     //인원 관리 직책 변경 버튼
     private void btnRoleChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRoleChangeActionPerformed
-        // 권한 체크: admin, president만 가능
-        String currentUserRole = UserSession.getRole();
-        if (!("admin".equals(currentUserRole) || "president".equals(currentUserRole))) {
+        if (!hasAdminPrivilege()) {
             JOptionPane.showMessageDialog(this, "직책 변경 권한이 없습니다.");
             return;
         }
@@ -1551,31 +1574,13 @@ public class MainFrame extends javax.swing.JFrame {
             return; // 취소
         }
 
-        // 한글 라벨을 영문 role로 변환
-        String newRole = "";
-        switch (selectedRoleLabel) {
-            case "관리자":
-                newRole = "admin";
-                break;
-            case "부장":
-                newRole = "president";
-                break;
-            case "평회원":
-                newRole = "member";
-                break;
-        }
-
-        // DB 업데이트
+        String newRole = convertRoleToEnglish(selectedRoleLabel);
         changeRole(userId, newRole);
-
-        // 테이블 새로고침
         refreshMemberTable();
     }//GEN-LAST:event_btnRoleChangeActionPerformed
     //인원 관리 탭 삭제 버튼
     private void btnMemDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMemDeleteActionPerformed
-        // 권한 체크: admin, president만 가능
-        String role = UserSession.getRole();
-        if (!("admin".equals(role) || "president".equals(role))) {
+        if (!hasAdminPrivilege()) {
             JOptionPane.showMessageDialog(this, "회원 삭제 권한이 없습니다.");
             return;
         }
@@ -1605,10 +1610,7 @@ public class MainFrame extends javax.swing.JFrame {
             return;
         }
 
-        // DB에서 삭제
         deleteMember(userId);
-
-        // 테이블 새로고침
         refreshMemberTable();
     }//GEN-LAST:event_btnMemDeleteActionPerformed
     
@@ -1619,7 +1621,6 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnScheRefreshActionPerformed
     //스케줄 관리 탭 일정 등록 버튼
     private void btnScheInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnScheInsertActionPerformed
-        // 입력 정보 가져오기
         String year = txtScheYear.getText().trim();
         String month = txtScheMonth.getText().trim();
         String day = txtScheDay.getText().trim();
@@ -1628,17 +1629,19 @@ public class MainFrame extends javax.swing.JFrame {
         String description = snpScheDescription.getText().trim();
         boolean completed = chkScheCompleted.isSelected();
 
-        // 입력 검증
         if (year.isEmpty() || month.isEmpty() || day.isEmpty()) {
             JOptionPane.showMessageDialog(this, "날짜를 모두 입력해주세요.");
+            this.requestFocusInWindow();
             return;
         }
         if (location.isEmpty()) {
             JOptionPane.showMessageDialog(this, "장소를 입력해주세요.");
+            this.requestFocusInWindow();
             return;
         }
         if (description.isEmpty()) {
             JOptionPane.showMessageDialog(this, "활동 내용을 입력해주세요.");
+            this.requestFocusInWindow();
             return;
         }
 
@@ -1651,16 +1654,11 @@ public class MainFrame extends javax.swing.JFrame {
             registerSchedule(date, location, 0, description, completed);
         }
 
-        // 입력 필드 초기화 (편집 모드 해제 포함)
         clearScheduleInputs();
-
-        // 테이블 새로고침
         loadScheduleTable();
     }//GEN-LAST:event_btnScheInsertActionPerformed
 
-    /**
-     * 스케줄 등록 (참가자 없이)
-     */
+    // 스케줄 등록 (참가자 없이)
     private void registerSchedule(String date, String location, int memberCount,
                                   String description, boolean completed) {
         // 완료 체크 시 바로 activities에만 저장
@@ -1722,9 +1720,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * 스케줄 입력 필드 초기화 (날짜는 오늘로 재설정)
-     */
+    // 스케줄 입력 필드 초기화 (날짜는 오늘로 재설정)
     private void clearScheduleInputs() {
         setDefaultScheDate(); // 날짜를 오늘로 재설정
         snpScheLocation.setText("");
@@ -1738,9 +1734,7 @@ public class MainFrame extends javax.swing.JFrame {
         btnPartInsert.setText("인원 등록"); // 인원 버튼 텍스트 원래대로
     }
 
-    /**
-     * 선택한 스케줄을 입력 필드에 로드 (수정 모드)
-     */
+    // 선택한 스케줄을 입력 필드에 로드 (수정 모드)
     private void loadScheduleForEdit(int scheduleId) {
         String sql = "SELECT schedule_date, location, description, completed FROM schedules WHERE id=?";
 
@@ -1779,9 +1773,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * 스케줄 업데이트
-     */
+    // 스케줄 업데이트
     private void updateSchedule(int scheduleId, String date, String location, String description, boolean completed) {
         // 완료 체크 시 activities로 이동
         if (completed) {
@@ -1846,13 +1838,11 @@ public class MainFrame extends javax.swing.JFrame {
     private void btnScheDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnScheDeleteActionPerformed
         int row = ScheTable.getSelectedRow();
 
-        // 1. 선택 여부 확인
         if (row == -1 || row >= scheduleIds.size()) {
             JOptionPane.showMessageDialog(this, "유효한 일정을 선택하세요.");
             return;
         }
 
-        // 2. scheduleIds에서 실제 ID 가져오기
         int scheduleId = scheduleIds.get(row);
 
         int confirm = JOptionPane.showConfirmDialog(
@@ -1864,7 +1854,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         if (confirm != JOptionPane.YES_OPTION) return;
 
-        // 3. DB에서 삭제 실행
         String sql = "DELETE FROM schedules WHERE id = ?";
 
         try (Connection conn = new DBConnection().getConnection();
@@ -1880,7 +1869,6 @@ public class MainFrame extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
-        // 4. ArrayList 초기화 + 테이블 갱신
         scheduleIds.clear();
         loadScheduleTable();
     }//GEN-LAST:event_btnScheDeleteActionPerformed
@@ -1888,16 +1876,14 @@ public class MainFrame extends javax.swing.JFrame {
     //활동 내역 탭 새로고침 버튼
     private void btnHisRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHisRefreshActionPerformed
         // 현재 선택된 정렬 방식으로 새로고침
-        String sortOrder = jCheckBox2.isSelected() ? "ASC" : "DESC";
+        String sortOrder = chkHisDateOrder.isSelected() ? "ASC" : "DESC";
         loadHistoryTable(sortOrder);
         JOptionPane.showMessageDialog(this, "활동 내역이 새로고침되었습니다.");
     }//GEN-LAST:event_btnHisRefreshActionPerformed
 
    //활동 내역 탭 활동 삭제 버튼
     private void btnHisDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHisDeleteActionPerformed
-        // 권한 체크: admin, president만 가능
-        String role = UserSession.getRole();
-        if (!("admin".equals(role) || "president".equals(role))) {
+        if (!hasAdminPrivilege()) {
             JOptionPane.showMessageDialog(this, "활동 삭제 권한이 없습니다.");
             return;
         }
@@ -1925,17 +1911,13 @@ public class MainFrame extends javax.swing.JFrame {
             return;
         }
 
-        // DB에서 삭제
         deleteActivity(activityId);
 
-        // 테이블 새로고침
-        String sortOrder = jCheckBox2.isSelected() ? "ASC" : "DESC";
+        String sortOrder = chkHisDateOrder.isSelected() ? "ASC" : "DESC";
         loadHistoryTable(sortOrder);
     }//GEN-LAST:event_btnHisDeleteActionPerformed
 
-    /**
-     * 활동 내역 삭제
-     */
+    // 활동 내역 삭제
     private void deleteActivity(int activityId) {
         String sql = "DELETE FROM activities WHERE id=?";
 
@@ -1966,14 +1948,11 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDuesUpdateActionPerformed
     //회비 관리 탭 내역 추가 버튼 (사용 내역 등록)
     private void btnDuesInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuesInsertActionPerformed
-        // 권한 체크
-        String role = UserSession.getRole();
-        if (!("admin".equals(role) || "president".equals(role))) {
+        if (!hasAdminPrivilege()) {
             JOptionPane.showMessageDialog(this, "회비 등록 권한이 없습니다.");
             return;
         }
 
-        // 입력 정보 가져오기
         String year = txtDuesYear.getText().trim();
         String month = txtDuesMonth.getText().trim();
         String day = txtDuesDay.getText().trim();
@@ -1983,7 +1962,6 @@ public class MainFrame extends javax.swing.JFrame {
         String description = txtDuesDescription.getText().trim();
         String amountStr = txtDuesAmount.getText().trim();
 
-        // 입력 검증
         if (year.isEmpty() || month.isEmpty() || day.isEmpty()) {
             JOptionPane.showMessageDialog(this, "날짜를 입력해주세요.");
             return;
@@ -2018,14 +1996,11 @@ public class MainFrame extends javax.swing.JFrame {
             return;
         }
 
-        // 회비 사용 내역 등록 (날짜 수정 가능)
         registerDues(date, location, representative, description, amount);
     }//GEN-LAST:event_btnDuesInsertActionPerformed
     //회비 관리 탭 내역 삭제 버튼
     private void btnDuesDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuesDeleteActionPerformed
-        // 권한 체크
-        String role = UserSession.getRole();
-        if (!("admin".equals(role) || "president".equals(role))) {
+        if (!hasAdminPrivilege()) {
             JOptionPane.showMessageDialog(this, "회비 삭제 권한이 없습니다.");
             return;
         }
@@ -2053,10 +2028,7 @@ public class MainFrame extends javax.swing.JFrame {
             return;
         }
 
-        // DB에서 삭제
         deleteDues(duesId);
-
-        // 테이블 및 라벨 새로고침
         loadDuesHistory();
         updateDuesLabels();
     }//GEN-LAST:event_btnDuesDeleteActionPerformed
@@ -2064,42 +2036,18 @@ public class MainFrame extends javax.swing.JFrame {
     //스케줄 관리 탭 인원 등록/수정 버튼
     private void btnPartInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPartInsertActionPerformed
 
-        String year = txtScheYear.getText().trim();
-        String month = txtScheMonth.getText().trim();
-        String day = txtScheDay.getText().trim();
+        // 테이블에서 선택된 행 확인
+        int selectedRow = ScheTable.getSelectedRow();
 
-        String date = year + "-" + month + "-" + day;
-        String location = snpScheLocation.getText();
-        String description = snpScheDescription.getText();
-        boolean completed = chkScheCompleted.isSelected();
-
-        if (year.isEmpty() || month.isEmpty() || day.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "날짜를 모두 입력해주세요.");
-            return;
-        }
-        if (location.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "장소를 입력해주세요.");
-            return;
-        }
-        if (description.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "활동 내용를 모두 입력해주세요.");
+        if (selectedRow == -1 || selectedRow >= scheduleIds.size()) {
+            JOptionPane.showMessageDialog(this,
+                "일정을 먼저 등록해 주세요.");
+            this.requestFocusInWindow();
             return;
         }
 
-        int scheduleId;
-
-        if (isEditMode) {
-            // 수정 모드: 기존 스케줄 ID 사용
-            scheduleId = editingScheduleId;
-        } else {
-            // 등록 모드: DB에 스케줄 먼저 저장하고 id 받기 (인원수는 0으로 시작)
-            scheduleId = insertScheduleAndGetId(date, location, 0, description, completed);
-
-            if (scheduleId == -1) {
-                System.out.println("스케줄 등록 실패");
-                return;
-            }
-        }
+        // 선택된 스케줄의 ID 가져오기
+        int scheduleId = scheduleIds.get(selectedRow);
 
         // 참가자 입력 프레임 열기
         ParticipantsFrame frame = new ParticipantsFrame(scheduleId);
@@ -2109,29 +2057,22 @@ public class MainFrame extends javax.swing.JFrame {
         loadScheduleTable();
     }//GEN-LAST:event_btnPartInsertActionPerformed
 
-    //스케줄 관리 탭에서 참가인원 행을 클릭했을 때(ParticipantsFrame 열림)
+    //스케줄 관리 탭에서 행을 클릭했을 때
     private void ScheTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ScheTableMouseClicked
         int row = ScheTable.getSelectedRow();
-        int col = ScheTable.getSelectedColumn();
 
         // row가 실제 데이터보다 크면 무시
-        if (row >= scheduleIds.size()) {
+        if (row >= scheduleIds.size() || row == -1) {
             return;
         }
 
-        // 참가자 칸(4번) 클릭했을 때만 열기
-        if (col == 4) {
-            int scheduleId = scheduleIds.get(row);
-            ParticipantsFrame frame = new ParticipantsFrame(scheduleId);
-            frame.setVisible(true);
-        }
+        // 행이 선택되면 "인원 등록" 버튼을 "인원 수정"으로 변경
+        btnPartInsert.setText("인원 수정");
     }//GEN-LAST:event_ScheTableMouseClicked
 
     //회비 입금 버튼
     private void btnDuesDepositActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuesDepositActionPerformed
-        // 권한 체크: admin, president만 가능
-        String role = UserSession.getRole();
-        if (!("admin".equals(role) || "president".equals(role))) {
+        if (!hasAdminPrivilege()) {
             JOptionPane.showMessageDialog(this, "회비 입금 권한이 없습니다.");
             return;
         }
@@ -2164,97 +2105,14 @@ public class MainFrame extends javax.swing.JFrame {
         // 수정 모드로 전환하고 데이터 로드
         loadScheduleForEdit(scheduleId);
     }//GEN-LAST:event_btnScheUpdateActionPerformed
-    
-    //schedules 테이블에 INSERT 후 반환 (인원 등록용)
-    private int insertScheduleAndGetId(String date, String location, int memberCount, String description, boolean completed) {
-        int newId = -1;//초기화
-
-        String sql = "INSERT INTO schedules (schedule_date, location, member_count, description, completed) VALUES (?, ?, ?, ?, ?)";
-
-        try (Connection conn = new DBConnection().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-
-            pstmt.setString(1, date);
-            pstmt.setString(2, location);
-            pstmt.setInt(3, memberCount);
-            pstmt.setString(4, description);
-            pstmt.setBoolean(5, completed);
-
-            pstmt.executeUpdate();
-
-            //자동 생성된 키 받기
-            ResultSet keys = pstmt.getGeneratedKeys();
-            if (keys.next()) {
-                newId = keys.getInt(1);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return newId;
-    }
-
-    /**
-     * 완료된 스케줄을 activities 테이블에 자동 추가
-     */
-    private void insertCompletedActivityFromSchedule(int scheduleId, String date, String location,
-                                                     int memberCount, String description) {
-        // schedules 테이블에서 participants 정보 가져오기
-        String selectSql = "SELECT participants FROM schedules WHERE id=?";
-        String participants = "";
-
-        try (Connection conn = new DBConnection().getConnection();
-             PreparedStatement selectStmt = conn.prepareStatement(selectSql)) {
-
-            selectStmt.setInt(1, scheduleId);
-            ResultSet rs = selectStmt.executeQuery();
-
-            if (rs.next()) {
-                participants = rs.getString("participants");
-            }
-
-        } catch (SQLException e) {
-            System.err.println("참가자 정보 조회 중 오류: " + e.getMessage());
-            e.printStackTrace();
-        }
-
-        // activities 테이블에 INSERT
-        String insertSql = "INSERT INTO activities (activity_date, location, member_count, description, participants) " +
-                          "VALUES (?, ?, ?, ?, ?)";
-
-        try (Connection conn = new DBConnection().getConnection();
-             PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
-
-            insertStmt.setString(1, date);
-            insertStmt.setString(2, location);
-            insertStmt.setInt(3, memberCount);
-            insertStmt.setString(4, description);
-            insertStmt.setString(5, participants);
-
-            int affected = insertStmt.executeUpdate();
-            if (affected > 0) {
-                System.out.println("완료된 스케줄이 활동 내역에 자동으로 추가되었습니다.");
-            }
-
-        } catch (SQLException e) {
-            System.err.println("활동 내역 자동 추가 중 오류: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * 스케줄 완료 처리 (트랜잭션)
-     * schedules → activities 이동
-     * @param scheduleId 완료 처리할 스케줄 ID
-     */
+    // 스케줄 완료 처리 (트랜잭션): schedules → activities 이동
     public void completeSchedule(int scheduleId) {
         Connection conn = null;
         try {
             conn = new DBConnection().getConnection();
             conn.setAutoCommit(false); // 트랜잭션 시작
 
-            // 1. schedules에서 데이터 조회
+            // schedules에서 데이터 조회
             String selectSql = "SELECT schedule_date, location, member_count, description, participants " +
                               "FROM schedules WHERE id=?";
 
@@ -2279,7 +2137,7 @@ public class MainFrame extends javax.swing.JFrame {
                 }
             }
 
-            // 2. activities 테이블에 INSERT
+            // activities 테이블에 INSERT
             String insertSql = "INSERT INTO activities (activity_date, location, member_count, description, participants) " +
                               "VALUES (?, ?, ?, ?, ?)";
 
@@ -2293,7 +2151,7 @@ public class MainFrame extends javax.swing.JFrame {
                 insertStmt.executeUpdate();
             }
 
-            // 3. schedules에서 DELETE (활동 내역으로 완전히 이동)
+            // schedules에서 DELETE (활동 내역으로 완전히 이동)
             String deleteSql = "DELETE FROM schedules WHERE id=?";
 
             try (PreparedStatement deleteStmt = conn.prepareStatement(deleteSql)) {
@@ -2301,12 +2159,9 @@ public class MainFrame extends javax.swing.JFrame {
                 deleteStmt.executeUpdate();
             }
 
-            // 트랜잭션 커밋
             conn.commit();
             System.out.println("스케줄 완료 처리 성공 (트랜잭션 완료)");
-            JOptionPane.showMessageDialog(this, "스케줄이 활동 내역으로 이동되었습니다!");
 
-            // 테이블 새로고침
             loadScheduleTable();
             loadHistoryTable();
 
@@ -2396,19 +2251,20 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroupGender;
     private javax.swing.JComboBox<String> cbxDuesRepresentive;
     private javax.swing.JCheckBox chkAll;
+    private javax.swing.JCheckBox chkDuesDateOrder;
+    private javax.swing.JCheckBox chkDuesLatest;
     private javax.swing.JCheckBox chkFemale;
+    private javax.swing.JCheckBox chkHisDateOrder;
+    private javax.swing.JCheckBox chkHisLatest;
     private javax.swing.JCheckBox chkMale;
     private javax.swing.JCheckBox chkScheCompleted;
     private javax.swing.JCheckBox chkScheDateOrder;
     private javax.swing.JCheckBox chkScheLatest;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
@@ -2424,7 +2280,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JLabel lblDuesMemberCount;
     private javax.swing.JLabel lblRemainDues;
     private javax.swing.JLabel lblTotalDues;
     private javax.swing.JLabel lblUserInfo;

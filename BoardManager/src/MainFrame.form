@@ -81,24 +81,22 @@
                               <Component id="chkMale" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="chkFemale" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="615" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="633" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane1" pref="762" max="32767" attributes="0"/>
+                              <Component id="jScrollPane1" pref="774" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="btnMemUpdate" alignment="0" max="32767" attributes="0"/>
-                              <Component id="btnMemInsert" alignment="0" max="32767" attributes="0"/>
-                              <Component id="btnMemDelete" alignment="0" max="32767" attributes="0"/>
-                              <Component id="btnRoleChange" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="btnMemRefresh" alignment="1" min="-2" pref="82" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="btnMemUpdate" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnMemInsert" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnMemDelete" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnRoleChange" max="32767" attributes="0"/>
+                          <Component id="btnMemRefresh" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -116,7 +114,7 @@
                           <Component id="jScrollPane1" pref="364" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="btnMemRefresh" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                               <Component id="btnMemInsert" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnMemUpdate" min="-2" max="-2" attributes="0"/>
@@ -148,13 +146,13 @@
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="7" rowCount="30">
-                        <Column editable="true" title="ID" type="java.lang.Object"/>
-                        <Column editable="true" title="&#xc544;&#xc774;&#xb514;" type="java.lang.Object"/>
-                        <Column editable="true" title="&#xc774;&#xb984;" type="java.lang.Object"/>
-                        <Column editable="true" title="&#xd559;&#xbc88;" type="java.lang.Object"/>
-                        <Column editable="true" title="&#xc131;&#xbcc4;" type="java.lang.Object"/>
-                        <Column editable="true" title="&#xc9c1;&#xcc45;" type="java.lang.Object"/>
-                        <Column editable="true" title="&#xc0dd;&#xb144;&#xc6d4;&#xc77c;" type="java.lang.Object"/>
+                        <Column editable="false" title="ID" type="java.lang.Object"/>
+                        <Column editable="false" title="&#xc544;&#xc774;&#xb514;" type="java.lang.Object"/>
+                        <Column editable="false" title="&#xc774;&#xb984;" type="java.lang.Object"/>
+                        <Column editable="false" title="&#xd559;&#xbc88;" type="java.lang.Object"/>
+                        <Column editable="false" title="&#xc131;&#xbcc4;" type="java.lang.Object"/>
+                        <Column editable="false" title="&#xc9c1;&#xcc45;" type="java.lang.Object"/>
+                        <Column editable="false" title="&#xc0dd;&#xb144;&#xc6d4;&#xc77c;" type="java.lang.Object"/>
                       </Table>
                     </Property>
                   </Properties>
@@ -255,9 +253,9 @@
                                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="txtScheDay" min="-2" pref="30" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
@@ -273,25 +271,21 @@
                                   <Component id="snpScheLocation" max="32767" attributes="0"/>
                                   <Component id="jScrollPane3" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="btnPartInsert" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                                      <Component id="chkScheCompleted" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
+                              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                              <Component id="chkScheCompleted" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jScrollPane6" pref="762" max="32767" attributes="0"/>
+                          <Component id="jScrollPane6" pref="774" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnScheInsert" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnScheDelete" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnScheRefresh" alignment="0" min="-2" pref="82" max="-2" attributes="0"/>
-                          <Component id="btnScheUpdate" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="btnScheInsert" max="32767" attributes="0"/>
+                          <Component id="btnScheDelete" max="32767" attributes="0"/>
+                          <Component id="btnScheUpdate" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnPartInsert" max="32767" attributes="0"/>
+                          <Component id="btnScheRefresh" alignment="0" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -304,7 +298,6 @@
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="snpScheLocation" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnPartInsert" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
@@ -320,8 +313,10 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
                                       <Component id="btnScheRefresh" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="btnScheInsert" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="btnPartInsert" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="btnScheUpdate" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -432,12 +427,12 @@
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="6" rowCount="20">
-                        <Column editable="true" title="&#xb0a0;&#xc9dc;" type="java.lang.Object"/>
-                        <Column editable="true" title="&#xc7a5;&#xc18c;" type="java.lang.Object"/>
-                        <Column editable="true" title="&#xc778;&#xc6d0; &#xc218;" type="java.lang.Object"/>
-                        <Column editable="true" title="&#xd65c;&#xb3d9; &#xb0b4;&#xc6a9;" type="java.lang.Object"/>
-                        <Column editable="true" title="&#xcc38;&#xac00; &#xc778;&#xc6d0;" type="java.lang.Object"/>
-                        <Column editable="true" title="&#xc644;&#xb8cc;" type="java.lang.Object"/>
+                        <Column editable="false" title="&#xb0a0;&#xc9dc;" type="java.lang.Object"/>
+                        <Column editable="false" title="&#xc7a5;&#xc18c;" type="java.lang.Object"/>
+                        <Column editable="false" title="&#xc778;&#xc6d0; &#xc218;" type="java.lang.Object"/>
+                        <Column editable="false" title="&#xd65c;&#xb3d9; &#xb0b4;&#xc6a9;" type="java.lang.Object"/>
+                        <Column editable="false" title="&#xcc38;&#xac00; &#xc778;&#xc6d0;" type="java.lang.Object"/>
+                        <Column editable="false" title="&#xc644;&#xb8cc;" type="java.lang.Object"/>
                       </Table>
                     </Property>
                   </Properties>
@@ -483,113 +478,6 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="HisPanel">
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="&#xd65c;&#xb3d9; &#xb0b4;&#xc5ed;">
-                <Property name="tabTitle" type="java.lang.String" value="&#xd65c;&#xb3d9; &#xb0b4;&#xc5ed;"/>
-              </JTabbedPaneConstraints>
-            </Constraint>
-          </Constraints>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="jCheckBox2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jCheckBox3" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="650" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane5" pref="762" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="btnHisDelete" max="32767" attributes="0"/>
-                          <Component id="btnHisRefresh" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jCheckBox2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jCheckBox3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane5" pref="364" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="btnHisRefresh" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnHisDelete" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-          <SubComponents>
-            <Container class="javax.swing.JScrollPane" name="jScrollPane5">
-              <AuxValues>
-                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-              </AuxValues>
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-              <SubComponents>
-                <Component class="javax.swing.JTable" name="HisTable">
-                  <Properties>
-                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="5" rowCount="30">
-                        <Column editable="true" title="&#xb0a0;&#xc9dc;" type="java.lang.Object"/>
-                        <Column editable="true" title="&#xc7a5;&#xc18c;" type="java.lang.Object"/>
-                        <Column editable="true" title="&#xcc38;&#xac00; &#xc778;&#xc6d0; &#xc218;" type="java.lang.Object"/>
-                        <Column editable="true" title="&#xd65c;&#xb3d9; &#xb0b4;&#xc6a9;" type="java.lang.Object"/>
-                        <Column editable="true" title="&#xcc38;&#xac00;&#xc790;" type="java.lang.Object"/>
-                      </Table>
-                    </Property>
-                  </Properties>
-                </Component>
-              </SubComponents>
-            </Container>
-            <Component class="javax.swing.JButton" name="btnHisDelete">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="&#xd65c;&#xb3d9; &#xc0ad;&#xc81c;"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHisDeleteActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="btnHisRefresh">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="&#xc0c8;&#xb85c;&#xace0;&#xce68;"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHisRefreshActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="jCheckBox2">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="&#xb0a0;&#xc9dc;&#xc21c;"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="jCheckBox3">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="&#xcd5c;&#xc2e0;&#xc21c;"/>
-              </Properties>
-            </Component>
-          </SubComponents>
-        </Container>
         <Container class="javax.swing.JPanel" name="DuesPanel">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
@@ -607,7 +495,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
                                       <Component id="txtDuesYear" min="-2" pref="44" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
@@ -621,9 +509,9 @@
                                       <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                                      <Component id="chkDuesDateOrder" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="cbxDuesRepresentive" min="-2" pref="81" max="-2" attributes="0"/>
+                                      <Component id="chkDuesLatest" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -641,15 +529,15 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
                                       <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="txtDuesAmount" min="-2" pref="70" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="txtDuesAmount" min="-2" pref="80" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="lblDuesMemberCount" min="-2" max="-2" attributes="0"/>
+                                      <Component id="cbxDuesRepresentive" min="-2" pref="81" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -677,7 +565,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="11" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -687,51 +575,50 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtDuesLocation" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txtDuesDescription" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                      <Component id="txtDuesAmount" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="lblTotalDues" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="btnDuesDeposit" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtDuesAmount" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblDuesMemberCount" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblRemainDues" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblRemainDues" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtDuesYear" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtDuesMonth" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtDuesDay" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtDuesLocation" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtDuesYear" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtDuesMonth" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtDuesDay" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cbxDuesRepresentive" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="chkDuesDateOrder" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="chkDuesLatest" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                      <Component id="txtDuesDescription" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="cbxDuesRepresentive" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -763,12 +650,12 @@
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="6" rowCount="30">
-                        <Column editable="true" title="&#xb0a0;&#xc9dc;" type="java.lang.Object"/>
-                        <Column editable="true" title="&#xc7a5;&#xc18c;" type="java.lang.Object"/>
-                        <Column editable="true" title="&#xc0ac;&#xc6a9; &#xb300;&#xd45c;&#xc790;" type="java.lang.Object"/>
-                        <Column editable="true" title="&#xc0ac;&#xc6a9; &#xbaa9;&#xc801;" type="java.lang.Object"/>
-                        <Column editable="true" title="&#xae08;&#xc561;" type="java.lang.Object"/>
-                        <Column editable="true" title="&#xc794;&#xc561;" type="java.lang.Object"/>
+                        <Column editable="false" title="&#xb0a0;&#xc9dc;" type="java.lang.Object"/>
+                        <Column editable="false" title="&#xc7a5;&#xc18c;" type="java.lang.Object"/>
+                        <Column editable="false" title="&#xc0ac;&#xc6a9; &#xb300;&#xd45c;&#xc790;" type="java.lang.Object"/>
+                        <Column editable="false" title="&#xc0ac;&#xc6a9; &#xbaa9;&#xc801;" type="java.lang.Object"/>
+                        <Column editable="false" title="&#xae08;&#xc561;" type="java.lang.Object"/>
+                        <Column editable="false" title="&#xc794;&#xc561;" type="java.lang.Object"/>
                       </Table>
                     </Property>
                   </Properties>
@@ -864,11 +751,6 @@
                 <Property name="text" type="java.lang.String" value="2025"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel14">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="&#xd68c;&#xc6d0; &#xc218; :"/>
-              </Properties>
-            </Component>
             <Component class="javax.swing.JLabel" name="jLabel15">
               <Properties>
                 <Property name="text" type="java.lang.String" value="&#xc794;&#xc5ec; &#xd68c;&#xbe44; :"/>
@@ -892,14 +774,6 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="&#xb9d1;&#xc740; &#xace0;&#xb515;" size="14" style="1"/>
                 </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="66" green="ff" red="66" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="text"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblDuesMemberCount">
-              <Properties>
                 <Property name="text" type="java.lang.String" value="text"/>
               </Properties>
             </Component>
@@ -910,6 +784,123 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDuesDepositActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="chkDuesDateOrder">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#xb0a0;&#xc9dc;&#xc21c;"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="chkDuesLatest">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#xcd5c;&#xc2e0;&#xc21c;"/>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="HisPanel">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+              <JTabbedPaneConstraints tabName="&#xd65c;&#xb3d9; &#xb0b4;&#xc5ed;">
+                <Property name="tabTitle" type="java.lang.String" value="&#xd65c;&#xb3d9; &#xb0b4;&#xc5ed;"/>
+              </JTabbedPaneConstraints>
+            </Constraint>
+          </Constraints>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="chkHisDateOrder" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="chkHisLatest" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="666" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jScrollPane5" pref="778" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="btnHisDelete" max="32767" attributes="0"/>
+                          <Component id="btnHisRefresh" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="chkHisDateOrder" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="chkHisLatest" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jScrollPane5" pref="364" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="btnHisRefresh" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnHisDelete" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Container class="javax.swing.JScrollPane" name="jScrollPane5">
+              <AuxValues>
+                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+              </AuxValues>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JTable" name="HisTable">
+                  <Properties>
+                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                      <Table columnCount="5" rowCount="30">
+                        <Column editable="false" title="&#xb0a0;&#xc9dc;" type="java.lang.Object"/>
+                        <Column editable="false" title="&#xc7a5;&#xc18c;" type="java.lang.Object"/>
+                        <Column editable="false" title="&#xcc38;&#xac00; &#xc778;&#xc6d0; &#xc218;" type="java.lang.Object"/>
+                        <Column editable="false" title="&#xd65c;&#xb3d9; &#xb0b4;&#xc6a9;" type="java.lang.Object"/>
+                        <Column editable="false" title="&#xcc38;&#xac00;&#xc790;" type="java.lang.Object"/>
+                      </Table>
+                    </Property>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
+            <Component class="javax.swing.JButton" name="btnHisDelete">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#xd65c;&#xb3d9; &#xc0ad;&#xc81c;"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHisDeleteActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnHisRefresh">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#xc0c8;&#xb85c;&#xace0;&#xce68;"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHisRefreshActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="chkHisDateOrder">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#xb0a0;&#xc9dc;&#xc21c;"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="chkHisLatest">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#xcd5c;&#xc2e0;&#xc21c;"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
