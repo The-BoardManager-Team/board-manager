@@ -5,12 +5,11 @@ public class SignUpFrame extends javax.swing.JFrame {
     // 수정 모드 여부
     private boolean isEditMode = false;
     private int editUserId = -1;
-    private String editUsername = "";
 
-    // MainFrame에서 호출되었는지 여부 (회원 추가 모드)
+    // 회원 추가 모드
     private boolean isFromMainFrame = false;
 
-    // 회원가입 모드 생성자 (LoginFrame에서 호출)
+    // 회원가입 생성자 
     public SignUpFrame() {
         initComponents();
         isEditMode = false;
@@ -18,27 +17,29 @@ public class SignUpFrame extends javax.swing.JFrame {
         setTitle("회원가입");
     }
 
-    // 회원 추가 모드 생성자 (MainFrame에서 호출)
+    // 회원 추가 생성자 
     public SignUpFrame(boolean fromMainFrame) {
         initComponents();
         isEditMode = false;
-        isFromMainFrame = fromMainFrame;
+        isFromMainFrame = true;
         setTitle("회원 추가");
     }
 
-    // 회원수정 모드 생성자
+    // 회원수정 생성자
     public SignUpFrame(int userId, String username, String name, String studentId,
                        String gender, String birthDate, String password) {
         initComponents();
         isEditMode = true;
         editUserId = userId;
-        editUsername = username;
-
-        // 기존 정보로 필드 채우기
+        
+        // 아이디 비밀번호는 수정 불가
+        txtId.setEnabled(false); 
+        txtPw.setEnabled(false);       
+        txtPwCheck.setEnabled(false);   
+        
+        // 수정 대상의 정보로 필드 채우기
         txtId.setText(username);
-        txtId.setEditable(false); // 아이디는 수정 불가
         btnIdCheck.setVisible(false); // 중복 체크 버튼 숨김
-
         txtName.setText(name);
         txtNo.setText(studentId);
 
@@ -49,21 +50,18 @@ public class SignUpFrame extends javax.swing.JFrame {
             rbtnFemale.setSelected(true);
         }
 
-        // 생년월일 파싱 (YYYY-MM-DD 형식)
+        // 생년월일 파싱 YYYY-MM-DD에서 꺼내기 
         if (birthDate != null && !birthDate.isEmpty()) {
             String[] dateParts = birthDate.split("-");
             if (dateParts.length == 3) {
                 txtYear.setText(dateParts[0]);
-                cbnMonth.setSelectedIndex(Integer.parseInt(dateParts[1]) - 1);
+                cbnMonth.setSelectedIndex(Integer.parseInt(dateParts[1]) - 1); // index에 맞게 -1
                 txtDay.setText(dateParts[2]);
             }
         }
 
-        // 비밀번호는 비워둠 (변경하려면 입력)
         txtPw.setText("");
         txtPwCheck.setText("");
-
-        // 버튼 텍스트 변경
         btnSignup.setText("회원 수정");
         setTitle("회원 정보 수정");
     }
@@ -260,11 +258,8 @@ public class SignUpFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSignupActionPerformed
 
-    /**
-     * 회원가입 처리
-     */
+    // 회원가입 
     private void handleSignup() {
-        // 1. 입력값 가져오기
         String username = txtId.getText().trim();
         String password = new String(txtPw.getPassword()).trim();
         String passwordCheck = new String(txtPwCheck.getPassword()).trim();
@@ -274,19 +269,16 @@ public class SignUpFrame extends javax.swing.JFrame {
         String month = String.valueOf(cbnMonth.getSelectedIndex() + 1);
         String day = txtDay.getText().trim();
 
-        // 2. 필수 입력 검증
         if (username.isEmpty() || password.isEmpty() || name.isEmpty()) {
             javax.swing.JOptionPane.showMessageDialog(this, "아이디, 비밀번호, 이름은 필수 입력 항목입니다.");
             return;
         }
 
-        // 3. 비밀번호 확인
         if (!password.equals(passwordCheck)) {
             javax.swing.JOptionPane.showMessageDialog(this, "비밀번호가 일치하지 않습니다.");
             return;
         }
 
-        // 4. 성별 가져오기
         String gender = null;
         if (rbtnMale.isSelected()) {
             gender = "남";
@@ -294,21 +286,17 @@ public class SignUpFrame extends javax.swing.JFrame {
             gender = "여";
         }
 
-        // 5. 생년월일 구성
         String birthDate = null;
         if (!year.isEmpty() && !month.isEmpty() && !day.isEmpty()) {
             birthDate = String.format("%s-%02d-%02d", year, Integer.parseInt(month), Integer.parseInt(day));
         }
 
-        // 6. DB에 회원 정보 저장
+        // DB 저장 
         insertUser(username, password, studentId, name, gender, birthDate);
     }
 
-    /**
-     * 회원 정보 수정 처리
-     */
-    private void handleEditMember() {
-        // 1. 입력값 가져오기
+    // 회원 정보 수정 
+    private void handleEditMember() {      
         String password = new String(txtPw.getPassword()).trim();
         String passwordCheck = new String(txtPwCheck.getPassword()).trim();
         String studentId = txtNo.getText().trim();
@@ -316,42 +304,29 @@ public class SignUpFrame extends javax.swing.JFrame {
         String year = txtYear.getText().trim();
         String month = String.valueOf(cbnMonth.getSelectedIndex() + 1);
         String day = txtDay.getText().trim();
-
-        // 2. 필수 입력 검증
+        
         if (name.isEmpty()) {
             javax.swing.JOptionPane.showMessageDialog(this, "이름은 필수 입력 항목입니다.");
             return;
-        }
-
-        // 3. 비밀번호 변경 체크 (입력되었을 경우만)
-        if (!password.isEmpty() || !passwordCheck.isEmpty()) {
-            if (!password.equals(passwordCheck)) {
-                javax.swing.JOptionPane.showMessageDialog(this, "비밀번호가 일치하지 않습니다.");
-                return;
-            }
-        }
-
-        // 4. 성별 가져오기
+        }      
+        
         String gender = null;
         if (rbtnMale.isSelected()) {
             gender = "남";
         } else if (rbtnFemale.isSelected()) {
             gender = "여";
         }
-
-        // 5. 생년월일 구성
+        
         String birthDate = null;
         if (!year.isEmpty() && !month.isEmpty() && !day.isEmpty()) {
             birthDate = String.format("%s-%02d-%02d", year, Integer.parseInt(month), Integer.parseInt(day));
         }
 
-        // 6. DB 업데이트
+        // DB 업데이트 
         updateUser(editUserId, password, studentId, name, gender, birthDate);
     }
 
-    /**
-     * 회원 정보 DB에 저장
-     */
+    // DB 저장 
     private void insertUser(String username, String password, String studentId,
                            String name, String gender, String birthDate) {
         String sql = "INSERT INTO users (username, password, student_id, name, gender, birth_date, role) " +
@@ -392,28 +367,16 @@ public class SignUpFrame extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * 회원 정보 DB에서 수정
-     */
+    // DB 수정 
     private void updateUser(int userId, String password, String studentId,
                            String name, String gender, String birthDate) {
         String sql;
-        boolean updatePassword = !password.isEmpty();
-
-        // 비밀번호 변경 여부에 따라 SQL 다르게 구성
-        if (updatePassword) {
-            sql = "UPDATE users SET password=?, student_id=?, name=?, gender=?, birth_date=? WHERE id=?";
-        } else {
-            sql = "UPDATE users SET student_id=?, name=?, gender=?, birth_date=? WHERE id=?";
-        }
+        sql = "UPDATE users SET student_id=?, name=?, gender=?, birth_date=? WHERE id=?";
 
         try (java.sql.Connection conn = new DBConnection().getConnection();
              java.sql.PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             int paramIndex = 1;
-            if (updatePassword) {
-                pstmt.setString(paramIndex++, password);
-            }
             pstmt.setString(paramIndex++, studentId);
             pstmt.setString(paramIndex++, name);
             pstmt.setString(paramIndex++, gender);
@@ -423,7 +386,6 @@ public class SignUpFrame extends javax.swing.JFrame {
             int affected = pstmt.executeUpdate();
             if (affected > 0) {
                 javax.swing.JOptionPane.showMessageDialog(this, "회원 정보가 수정되었습니다!");
-                // 회원 수정은 창만 닫고 MainFrame에 그대로 유지
                 dispose();
             } else {
                 javax.swing.JOptionPane.showMessageDialog(this, "회원 정보 수정에 실패했습니다.");
@@ -470,13 +432,12 @@ public class SignUpFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnIdCheckActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        dispose(); // 창 닫기
+        dispose();
 
         // LoginFrame에서 호출된 회원가입 모드일 때만 LoginFrame으로 돌아감
         if (!isEditMode && !isFromMainFrame) {
             new LoginFrame().setVisible(true);
-        }
-        // MainFrame에서 호출되었거나 수정 모드일 때는 그냥 닫기만 (MainFrame 유지)
+        }       
     }//GEN-LAST:event_btnCancelActionPerformed
 
 

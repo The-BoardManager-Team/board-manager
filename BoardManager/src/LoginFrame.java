@@ -139,12 +139,12 @@ public class LoginFrame extends javax.swing.JFrame {
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "아이디 또는 비밀번호가 틀립니다.");
-            generateCaptcha(); // 캡챠 새로 생성 (입력창도 자동 초기화됨)
+            generateCaptcha(); // 캡챠 새로 생성 
         }        
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void txtSignUpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSignUpMouseClicked
-        dispose(); // 현재 로그인창 닫기
+        dispose(); 
         new SignUpFrame().setVisible(true); // 메인프레임 열기
     }//GEN-LAST:event_txtSignUpMouseClicked
 
@@ -154,12 +154,12 @@ public class LoginFrame extends javax.swing.JFrame {
 
     //캡챠 텍스트 생성 및 정답 저장
     private void generateCaptcha() {
-        // 혼동되는 문자 제외 (0, O, 1, I 제외)
+        // 혼동되는 문자 제외 (0, O, 1, I 제외) 포함시키는 순간 정말 불쾌함 
         String chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
         StringBuilder sb = new StringBuilder();
 
         // 4-6자 랜덤 길이
-        int length = 4 + rand.nextInt(3); // 4, 5, 6 중 랜덤
+        int length = 4 + rand.nextInt(3); 
 
         for (int i = 0; i < length; i++) {
             sb.append(chars.charAt(rand.nextInt(chars.length())));
